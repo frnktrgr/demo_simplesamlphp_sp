@@ -7,6 +7,7 @@
  *
  * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-remote
  */
+
 $metadata['https://testidp2.aai.dfn.de/idp/shibboleth'] = [
     'entityid' => 'https://testidp2.aai.dfn.de/idp/shibboleth',
     'contacts' => [],
