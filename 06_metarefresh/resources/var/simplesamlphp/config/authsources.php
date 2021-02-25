@@ -44,7 +44,7 @@ $config = [
 
         // The URL to the discovery service.
         // Can be NULL/unset, in which case a builtin discovery service will be used.
-        'discoURL' => null,
+        'discoURL' => 'https://wayf.aai.dfn.de/DFN-AAI-Test/wayf',
 
         /*
          * The attributes parameter must contain an array of desired attributes by the SP.
@@ -61,10 +61,10 @@ $config = [
         'attributes' => [
             'eduPersonPrincipalName' => 'urn:oid:1.3.6.1.4.1.5923.1.1.1.6',
         ],
-        'attributes.NameFormat' => 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri',
         'attributes.required' => [
             'urn:oid:1.3.6.1.4.1.5923.1.1.1.6',
         ],
+        'attributes.NameFormat' => 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri',
         'UIInfo' => [
             'DisplayName' => [
                 'en' => 'Meine tolle PHP Anwendung',

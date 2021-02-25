@@ -498,7 +498,9 @@ $config = [
      'module.enable' => [
          'exampleauth' => false,
          'core' => true,
-         'saml' => true
+         'cron' => true,
+         'metarefresh' => true,
+         'saml' => true,
      ],
 
 
@@ -1143,6 +1145,9 @@ $config = [
      */
     'metadata.sources' => [
         ['type' => 'flatfile'],
+        ['type' => 'flatfile', 'directory' => 'metadata/dfntest'],
+        ['type' => 'flatfile', 'directory' => 'metadata/dfn'],
+        ['type' => 'flatfile', 'directory' => 'metadata/edugain'],
     ],
 
     /*
