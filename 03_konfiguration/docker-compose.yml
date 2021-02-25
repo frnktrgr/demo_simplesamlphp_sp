@@ -1,0 +1,17 @@
+version: '3'
+services:
+  sp:
+    build: .
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - var_log:/var/log
+      - var_simplesamlphp:/var/simplesamlphp
+      - /opt/simplesamlphp_sp/sso-dev.fau.de.crt:/etc/ssl/certs/sso-dev.fau.de.crt
+      - /opt/simplesamlphp_sp/sso-dev.fau.de.pem:/etc/ssl/private/sso-dev.fau.de.pem
+      - ./resources/var/www/html:/var/www/html
+    network_mode: bridge
+volumes:
+  var_log:
+  var_simplesamlphp:
