@@ -12,10 +12,10 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Hinzugefügt
-* [resources/var/simplesamlphp](../blob/main/02_installation/resources/var/simplesamlphp)
+* [resources/var/simplesamlphp](../../../blob/main/02_installation/resources/var/simplesamlphp)
 
 ### Änderungen
-* [docker-compose.yml](../blob/main/02_installation/docker-compose.yml):
+* [docker-compose.yml](../../../blob/main/02_installation/docker-compose.yml):
 ```diff
 @@ -7,9 +7,11 @@
        - "443:443"
@@ -30,7 +30,7 @@
    var_log:
 +  var_simplesamlphp:
 ```
-* [Dockerfile](../blob/main/02_installation/Dockerfile):
+* [Dockerfile](../../../blob/main/02_installation/Dockerfile):
 ```diff
 @@ -1,11 +1,15 @@
  ARG BBX_APACHE_VERSION=2.4.41*
@@ -74,7 +74,7 @@
  EXPOSE 80/tcp 443/tcp
  
 ```
-* [resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf](../blob/main/02_installation/resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf):
+* [resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf](../../../blob/main/02_installation/resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf):
 ```diff
 @@ -36,6 +36,14 @@
  
@@ -92,7 +92,7 @@
  </IfModule>
  
 ```
-* [resources/var/www/html/index.php](../blob/main/02_installation/resources/var/www/html/index.php):
+* [resources/var/www/html/index.php](../../../blob/main/02_installation/resources/var/www/html/index.php):
 ```diff
 @@ -36,7 +36,8 @@
              <div class="collapse navbar-collapse" id="navbarNav">

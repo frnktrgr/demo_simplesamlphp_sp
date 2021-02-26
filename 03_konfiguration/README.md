@@ -14,12 +14,12 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Hinzugefügt
-* [resources/etc/rsyslog.d](../blob/main/03_konfiguration/resources/etc/rsyslog.d)
-* [resources/var/simplesamlphp/config/authsources.php](../blob/main/03_konfiguration/resources/var/simplesamlphp/config/authsources.php)
-* [resources/var/simplesamlphp/metadata](../blob/main/03_konfiguration/resources/var/simplesamlphp/metadata)
+* [resources/etc/rsyslog.d](../../../blob/main/03_konfiguration/resources/etc/rsyslog.d)
+* [resources/var/simplesamlphp/config/authsources.php](../../../blob/main/03_konfiguration/resources/var/simplesamlphp/config/authsources.php)
+* [resources/var/simplesamlphp/metadata](../../../blob/main/03_konfiguration/resources/var/simplesamlphp/metadata)
 
 ### Änderungen
-* [resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf](../blob/main/03_konfiguration/resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf):
+* [resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf](../../../blob/main/03_konfiguration/resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf):
 ```diff
 @@ -39,7 +39,7 @@
  
@@ -31,7 +31,7 @@
          <Directory /var/simplesamlphp/www>
              Require all granted
 ```
-* [resources/var/simplesamlphp/config/config.php](../blob/main/03_konfiguration/resources/var/simplesamlphp/config/config.php):
+* [resources/var/simplesamlphp/config/config.php](../../../blob/main/03_konfiguration/resources/var/simplesamlphp/config/config.php):
 ```diff
 @@ -27,7 +27,7 @@
       * external url, no matter where you come from (direct access or via the
@@ -124,7 +124,7 @@
      'language.cookie.lifetime' => (60 * 60 * 24 * 900),
      'language.cookie.samesite' => \SimpleSAML\Utils\HTTP::canSetSameSiteNone() ? 'None' : null,
 ```
-* [resources/var/www/html/index.php](../blob/main/03_konfiguration/resources/var/www/html/index.php):
+* [resources/var/www/html/index.php](../../../blob/main/03_konfiguration/resources/var/www/html/index.php):
 ```diff
 @@ -37,7 +37,7 @@
                  <ul class="navbar-nav">

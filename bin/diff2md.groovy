@@ -3,7 +3,7 @@ procBranch.waitFor()
 def branch = procBranch.in.text.trim()
 println "in branch ${branch} ..."
 def linkTo = { base, path ->
-    return "[${path}](../blob/${branch}/${base}/${path})"
+    return "[${path}](../../../blob/${branch}/${base}/${path})"
 }
 def diff2md = { from, to ->
     def output = ""

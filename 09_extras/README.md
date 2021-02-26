@@ -22,7 +22,7 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Änderungen
-* [Dockerfile](../blob/main/09_extras/Dockerfile):
+* [Dockerfile](../../../blob/main/09_extras/Dockerfile):
 ```diff
 @@ -2,6 +2,8 @@
  ARG BBX_PHP_VERSION=7.4
@@ -66,7 +66,7 @@
  
  RUN set -ex \
 ```
-* [resources/startup.sh](../blob/main/09_extras/resources/startup.sh):
+* [resources/startup.sh](../../../blob/main/09_extras/resources/startup.sh):
 ```diff
 @@ -25,6 +25,11 @@
  echogood "Setting PHP max execution time to ${PHPMAXEXECUTIONTIME}"
@@ -81,7 +81,7 @@
  echogood "Starting Supervisor"
  exec /usr/bin/supervisord > /dev/null 2>&1 &
 ```
-* [resources/var/simplesamlphp/metadata/saml20-idp-remote.php](../blob/main/09_extras/resources/var/simplesamlphp/metadata/saml20-idp-remote.php):
+* [resources/var/simplesamlphp/metadata/saml20-idp-remote.php](../../../blob/main/09_extras/resources/var/simplesamlphp/metadata/saml20-idp-remote.php):
 ```diff
 @@ -8,273 +8,30 @@
   * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-remote

@@ -12,12 +12,12 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Hinzugefügt
-* [resources/etc/cron.d](../blob/main/06_metarefresh/resources/etc/cron.d)
-* [resources/var/simplesamlphp/config/config-metarefresh.php](../blob/main/06_metarefresh/resources/var/simplesamlphp/config/config-metarefresh.php)
-* [resources/var/simplesamlphp/config/module_cron.php](../blob/main/06_metarefresh/resources/var/simplesamlphp/config/module_cron.php)
+* [resources/etc/cron.d](../../../blob/main/06_metarefresh/resources/etc/cron.d)
+* [resources/var/simplesamlphp/config/config-metarefresh.php](../../../blob/main/06_metarefresh/resources/var/simplesamlphp/config/config-metarefresh.php)
+* [resources/var/simplesamlphp/config/module_cron.php](../../../blob/main/06_metarefresh/resources/var/simplesamlphp/config/module_cron.php)
 
 ### Änderungen
-* [docker-compose.yml](../blob/main/06_metarefresh/docker-compose.yml):
+* [docker-compose.yml](../../../blob/main/06_metarefresh/docker-compose.yml):
 ```diff
 @@ -12,6 +12,7 @@
        - /opt/simplesamlphp_sp/sso-dev.fau.de.pem:/etc/ssl/private/sso-dev.fau.de.pem
@@ -28,7 +28,7 @@
      network_mode: bridge
  volumes:
 ```
-* [Dockerfile](../blob/main/06_metarefresh/Dockerfile):
+* [Dockerfile](../../../blob/main/06_metarefresh/Dockerfile):
 ```diff
 @@ -72,6 +72,7 @@
  COPY resources/ /
@@ -49,7 +49,7 @@
  WORKDIR /var/simplesamlphp
  
 ```
-* [resources/startup.sh](../blob/main/06_metarefresh/resources/startup.sh):
+* [resources/startup.sh](../../../blob/main/06_metarefresh/resources/startup.sh):
 ```diff
 @@ -16,6 +16,16 @@
  
@@ -69,7 +69,7 @@
  exec /usr/bin/supervisord > /dev/null 2>&1 &
  child=$!
 ```
-* [resources/var/simplesamlphp/config/authsources.php](../blob/main/06_metarefresh/resources/var/simplesamlphp/config/authsources.php):
+* [resources/var/simplesamlphp/config/authsources.php](../../../blob/main/06_metarefresh/resources/var/simplesamlphp/config/authsources.php):
 ```diff
 @@ -44,7 +44,7 @@
  
@@ -81,7 +81,7 @@
          /*
           * The attributes parameter must contain an array of desired attributes by the SP.
 ```
-* [resources/var/simplesamlphp/config/config.php](../blob/main/06_metarefresh/resources/var/simplesamlphp/config/config.php):
+* [resources/var/simplesamlphp/config/config.php](../../../blob/main/06_metarefresh/resources/var/simplesamlphp/config/config.php):
 ```diff
 @@ -498,7 +498,9 @@
       'module.enable' => [
@@ -105,7 +105,7 @@
  
      /*
 ```
-* [resources/var/simplesamlphp/metadata/saml20-idp-remote.php](../blob/main/06_metarefresh/resources/var/simplesamlphp/metadata/saml20-idp-remote.php):
+* [resources/var/simplesamlphp/metadata/saml20-idp-remote.php](../../../blob/main/06_metarefresh/resources/var/simplesamlphp/metadata/saml20-idp-remote.php):
 ```diff
 @@ -8,273 +8,273 @@
   * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-remote

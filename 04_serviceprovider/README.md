@@ -17,7 +17,7 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Änderungen
-* [docker-compose.yml](../blob/main/04_serviceprovider/docker-compose.yml):
+* [docker-compose.yml](../../../blob/main/04_serviceprovider/docker-compose.yml):
 ```diff
 @@ -10,6 +10,8 @@
        - var_simplesamlphp:/var/simplesamlphp
@@ -29,7 +29,7 @@
      network_mode: bridge
  volumes:
 ```
-* [resources/var/simplesamlphp/config/authsources.php](../blob/main/04_serviceprovider/resources/var/simplesamlphp/config/authsources.php):
+* [resources/var/simplesamlphp/config/authsources.php](../../../blob/main/04_serviceprovider/resources/var/simplesamlphp/config/authsources.php):
 ```diff
 @@ -29,7 +29,14 @@
  
@@ -98,7 +98,7 @@
  
  
 ```
-* [resources/var/simplesamlphp/metadata/saml20-idp-remote.php](../blob/main/04_serviceprovider/resources/var/simplesamlphp/metadata/saml20-idp-remote.php):
+* [resources/var/simplesamlphp/metadata/saml20-idp-remote.php](../../../blob/main/04_serviceprovider/resources/var/simplesamlphp/metadata/saml20-idp-remote.php):
 ```diff
 @@ -7,3 +7,274 @@
   *

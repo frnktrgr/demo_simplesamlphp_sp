@@ -11,7 +11,7 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Änderungen
-* [Dockerfile](../blob/main/08_production/Dockerfile):
+* [Dockerfile](../../../blob/main/08_production/Dockerfile):
 ```diff
 @@ -82,7 +82,11 @@
      && a2dissite 000-default \
@@ -27,7 +27,7 @@
  WORKDIR /var/simplesamlphp
  
 ```
-* [resources/var/simplesamlphp/config/authsources.php](../blob/main/08_production/resources/var/simplesamlphp/config/authsources.php):
+* [resources/var/simplesamlphp/config/authsources.php](../../../blob/main/08_production/resources/var/simplesamlphp/config/authsources.php):
 ```diff
 @@ -91,272 +91,4 @@
              ],
@@ -303,7 +303,7 @@
 -    */
  ];
 ```
-* [resources/var/simplesamlphp/config/config-metarefresh.php](../blob/main/08_production/resources/var/simplesamlphp/config/config-metarefresh.php):
+* [resources/var/simplesamlphp/config/config-metarefresh.php](../../../blob/main/08_production/resources/var/simplesamlphp/config/config-metarefresh.php):
 ```diff
 @@ -6,6 +6,11 @@
              'cron'		=> ['hourly'],
@@ -344,7 +344,7 @@
  			'outputDir' 	=> 'metadata/dfn/',
  			'outputFormat'  => 'flatfile',
 ```
-* [resources/var/simplesamlphp/config/config.php](../blob/main/08_production/resources/var/simplesamlphp/config/config.php):
+* [resources/var/simplesamlphp/config/config.php](../../../blob/main/08_production/resources/var/simplesamlphp/config/config.php):
 ```diff
 @@ -144,7 +144,7 @@
       * Set this options to true if you want to require administrator password to access the web interface

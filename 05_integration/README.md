@@ -10,14 +10,14 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Hinzugefügt
-* [resources/var/www/html/logout.php](../blob/main/05_integration/resources/var/www/html/logout.php)
-* [resources/var/www/html/mapa_sso.php](../blob/main/05_integration/resources/var/www/html/mapa_sso.php)
-* [resources/var/www/html/protectmeopt.php](../blob/main/05_integration/resources/var/www/html/protectmeopt.php)
-* [resources/var/www/html/protectmeoptsession.php](../blob/main/05_integration/resources/var/www/html/protectmeoptsession.php)
-* [resources/var/www/html/protectme.php](../blob/main/05_integration/resources/var/www/html/protectme.php)
+* [resources/var/www/html/logout.php](../../../blob/main/05_integration/resources/var/www/html/logout.php)
+* [resources/var/www/html/mapa_sso.php](../../../blob/main/05_integration/resources/var/www/html/mapa_sso.php)
+* [resources/var/www/html/protectmeopt.php](../../../blob/main/05_integration/resources/var/www/html/protectmeopt.php)
+* [resources/var/www/html/protectmeoptsession.php](../../../blob/main/05_integration/resources/var/www/html/protectmeoptsession.php)
+* [resources/var/www/html/protectme.php](../../../blob/main/05_integration/resources/var/www/html/protectme.php)
 
 ### Änderungen
-* [resources/var/www/html/index.php](../blob/main/05_integration/resources/var/www/html/index.php):
+* [resources/var/www/html/index.php](../../../blob/main/05_integration/resources/var/www/html/index.php):
 ```diff
 @@ -1,5 +1,6 @@
  <?php
@@ -100,7 +100,7 @@
                      <pre><code class="language-php"><?php echo htmlspecialchars(file_get_contents('mapa_authn.php')); ?></code></pre>
                  </div>
 ```
-* [resources/var/www/html/mapa_authn.php](../blob/main/05_integration/resources/var/www/html/mapa_authn.php):
+* [resources/var/www/html/mapa_authn.php](../../../blob/main/05_integration/resources/var/www/html/mapa_authn.php):
 ```diff
 @@ -24,7 +24,9 @@
  

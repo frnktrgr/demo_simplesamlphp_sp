@@ -54,15 +54,15 @@ Das jeweilige `Dockerfile` kann auch als Schritt für Schritt Anleitung für ein
 
 ## Schulung
 
-### [01 Voraussetzungen](../blob/main/01_voraussetzungen)
-### [02 Installation](../blob/main/02_installation)
-### [03 Konfiguration](../blob/main/03_konfiguration)
-### [04 Service Provider](../blob/main/04_serviceprovider)
-### [05 Einbindung in eine eigene PHP-Anwendung](../blob/main/05_integration)
-### [06 Metadaten aus der DFN-AAI-Föderation](../blob/main/06_metarefresh)
-### [07 Grundlagen der Authentication Processing Filters](../blob/main/07_authproc)
-### [08 Vorbereitungen für den produktiven Betrieb](../blob/main/08_production)
-### [09 Extras](../blob/main/09_extras)
+### [01 Voraussetzungen](./tree/main/01_voraussetzungen)
+### [02 Installation](./tree/main/02_installation)
+### [03 Konfiguration](./tree/main/03_konfiguration)
+### [04 Service Provider](./tree/main/04_serviceprovider)
+### [05 Einbindung in eine eigene PHP-Anwendung](./tree/main/05_integration)
+### [06 Metadaten aus der DFN-AAI-Föderation](./tree/main/06_metarefresh)
+### [07 Grundlagen der Authentication Processing Filters](./tree/main/07_authproc)
+### [08 Vorbereitungen für den produktiven Betrieb](./tree/main/08_production)
+### [09 Extras](./tree/main/09_extras)
 
 ## Links
 * [SimpleSAMLphp Dokumentation](https://simplesamlphp.org/docs/stable/)
