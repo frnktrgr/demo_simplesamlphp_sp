@@ -1,9 +1,9 @@
 # Voraussetzungen
 
-Links:
+## Links
 * [SimpleSAMLphp Documentation > Installation and upgrading > Prerequisites](https://simplesamlphp.org/docs/stable/simplesamlphp-install#section_1)
 
-Punkte:
+## Bereitgestellte Umgebung
 * OS
   * hier: Ubuntu 20.04
 * Webserver für PHP
