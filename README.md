@@ -54,6 +54,16 @@ Das jeweilige `Dockerfile` kann auch als Schritt für Schritt Anleitung für ein
 
 ## Schulung
 
-Links:
+### [01 Voraussetzungen](../blob/main/01_voraussetzungen)
+### [02 Installation](../blob/main/02_installation)
+### [03 Konfiguration](../blob/main/03_konfiguration)
+### [04 Service Provider](../blob/main/04_serviceprovider)
+### [05 Einbindung in eine eigene PHP-Anwendung](../blob/main/05_integration)
+### [06 Metadaten aus der DFN-AAI-Föderation](../blob/main/06_metarefresh)
+### [07 Grundlagen der Authentication Processing Filters](../blob/main/07_authproc)
+### [08 Vorbereitungen für den produktiven Betrieb](../blob/main/08_production)
+### [09 Extras](../blob/main/09_extras)
+
+## Links
 * [SimpleSAMLphp Dokumentation](https://simplesamlphp.org/docs/stable/)
 * [DFN-AAI](https://doku.tid.dfn.de/)
