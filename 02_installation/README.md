@@ -94,12 +94,10 @@
 ```
 * [resources/var/www/html/index.php](../../../blob/main/02_installation/resources/var/www/html/index.php):
 ```diff
-@@ -36,7 +36,8 @@
-             <div class="collapse navbar-collapse" id="navbarNav">
+@@ -37,6 +37,7 @@
                  <ul class="navbar-nav">
                      <li class="nav-item"><a href="/" class="nav-link active">Home</a></li>
--                    <li class="nav-item"><a href="phpinfo.php" class="nav-link">PHP Info</a></li>
-+                    <li class="nav-item"><a href="/phpinfo.php" class="nav-link">PHP Info</a></li>
+                     <li class="nav-item"><a href="/phpinfo.php" class="nav-link">PHP Info</a></li>
 +                    <li class="nav-item"><a href="/simplesaml" class="nav-link">SimpleSAMLphp</a></li>
                      <li class="nav-item"><a href="?logout=true" class="nav-link"><i class="bi bi-box-arrow-right"></i>Abmelden</a></li>
                      <li class="nav-item"><a href="?destroy=true" class="nav-link"><i class="bi bi-box-arrow-right"></i>Destroy</a></li>

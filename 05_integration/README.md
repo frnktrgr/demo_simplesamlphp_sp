@@ -37,13 +37,10 @@
                      <li class="nav-item"><a href="?logout=true" class="nav-link"><i class="bi bi-box-arrow-right"></i>Abmelden</a></li>
                      <li class="nav-item"><a href="?destroy=true" class="nav-link"><i class="bi bi-box-arrow-right"></i>Destroy</a></li>
                  </ul>
-@@ -66,8 +71,11 @@
-             <div class="col-12 col-lg-9">
+@@ -67,6 +72,10 @@
                  <h1>Anwendung mit lokaler Anmeldung und SimpleSAMLphp</h1>
                  <ul class="list-group">
--                    <li class="list-group-item <?php echo isAuthenticated() ? "text-success" : "text-danger"; ?>"><?php echo isAuthenticated() ? "" : "nicht "; ?>angemeldet
--                    </li>
-+                    <li class="list-group-item <?php echo isAuthenticated() ? "text-success" : "text-danger"; ?>"><?php echo isAuthenticated() ? "" : "nicht "; ?>angemeldet</li>
+                     <li class="list-group-item <?php echo isAuthenticated() ? "text-success" : "text-danger"; ?>"><?php echo isAuthenticated() ? "" : "nicht "; ?>angemeldet</li>
 +                    <li class="list-group-item <?php echo isSsoAuthenticated() ? "text-success" : "text-danger"; ?>">SSO <?php echo isSsoAuthenticated() ? "" : "nicht "; ?>angemeldet</li>
 +                    <li class="list-group-item"><a href="/protectme.php" class="btn btn-secondary btn-sm">Demo: Einfache Absicherung (protectme.php)</a></li>
 +                    <li class="list-group-item"><a href="/protectmeopt.php" class="btn btn-secondary btn-sm">Demo: Einfache Absicherung optional (protectmeopt.php)</a></li>
@@ -51,7 +48,7 @@
                  </ul>
              </div>
          </div>
-@@ -86,6 +94,34 @@
+@@ -85,6 +94,34 @@
              </div>
          </div>
          <div class="accordion-item">
@@ -86,7 +83,7 @@
              <h2 class="accordion-header" id="headingThree">
                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                      <span class="font-monospace"><i class="bi bi-code-square"></i> PHP Code</span>
-@@ -95,9 +131,12 @@
+@@ -94,9 +131,12 @@
                  <div class="accordion-body">
                      <span class="font-monospace">index.php</span>
                      <pre><code class="language-php">require_once('mapa_init.php');

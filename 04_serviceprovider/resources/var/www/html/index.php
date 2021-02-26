@@ -66,8 +66,7 @@ require_once('mapa_authn.php');
             <div class="col-12 col-lg-9">
                 <h1>Anwendung mit lokaler Anmeldung und SimpleSAMLphp</h1>
                 <ul class="list-group">
-                    <li class="list-group-item <?php echo isAuthenticated() ? "text-success" : "text-danger"; ?>"><?php echo isAuthenticated() ? "" : "nicht "; ?>angemeldet
-                    </li>
+                    <li class="list-group-item <?php echo isAuthenticated() ? "text-success" : "text-danger"; ?>"><?php echo isAuthenticated() ? "" : "nicht "; ?>angemeldet</li>
                 </ul>
             </div>
         </div>
