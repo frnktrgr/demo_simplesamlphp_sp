@@ -1,14 +1,19 @@
-ARG BBX_APACHE_VERSION=2.4.41*
-ARG BBX_PHP_VERSION=7.4
+ARG BBX_APACHE_VERSION=2.4.52*
+ARG BBX_PHP_VERSION=8.1
 
-FROM ubuntu:20.04 AS build
+FROM ubuntu:22.04 AS build
 MAINTAINER Frank Tröger <frank.troeger@fau.de>
 
 ARG BBX_APACHE_VERSION
 ARG BBX_PHP_VERSION
 
+# env vars
 ENV TERM xterm
 ENV BBX_PHP_VERSION=$BBX_PHP_VERSION
+
+# set local mirror - can be skipped, of course
+RUN set -ex \
+    && sed "s/archive\.ubuntu\.com/ftp.uni-erlangen.de\/pub\/mirrors/" -i /etc/apt/sources.list
 
 RUN set -ex \
     && export DEBIAN_FRONTEND=noninteractive \
@@ -49,12 +54,6 @@ RUN set -ex \
         rsyslog \
         supervisor \
         unzip
-
-# get dfn ca cert chain
-WORKDIR /usr/local/share/ca-certificates
-RUN set -ex \
-    && wget -O dfnchain-g2.crt https://pki.pca.dfn.de/dfn-ca-global-g2/pub/cacert/chain.txt \
-    && update-ca-certificates
 
 COPY resources/ /
 

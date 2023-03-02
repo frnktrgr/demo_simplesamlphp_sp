@@ -4,6 +4,10 @@ Dieses Repository entstand bei der Durchführung einer Schulung über Service Pr
 [DFN-AAI](https://www.aai.dfn.de/) im Februar 2021. Ziel war das Kennenlernen der
 Software [SimpleSAMLphp](https://simplesamlphp.org/) als Service Provider in der DFN-AAI-Föderation.
 
+## Aktualisierung auf SimpleSAMLphp 2.0
+Die Original-Schulungsunterlagen beziehen sich auf SimpleSAMLphp 1.19 und sind weiterhin im Branch
+[simplesamlphp-1.19](/frnktrgr/demo_simplesamlphp_sp/tree/simplesamlphp-1.19) verfügbar.
+
 ## Schulung
 
 ### Abstract
@@ -48,7 +52,7 @@ durch eigene ersetzt werden.
 * [Docker](https://docs.docker.com/)
 * Port 80 und 443 frei
 
-Die in den `docker-compose.yml` verwendeten Docker Volumes sind nur für den
+Die in den `compose.yaml` verwendeten Docker Volumes sind nur für den
 einfachen Zugriff auf das Dateisystem während der Schulung nötig und können bei eigenen
 Versuchen entfernt werden.
 
@@ -66,20 +70,20 @@ find /opt/simplesamlphp_sp/
 Zum Beispiel für [01 Voraussetzungen](01_voraussetzungen):
 #### Bauen und Starten
 ```bash
-docker-compose -f 01_voraussetzungen/docker-compose.yml build
-docker-compose -f 01_voraussetzungen/docker-compose.yml up -d
+docker compose -f 01_voraussetzungen/compose.yaml build
+docker compose -f 01_voraussetzungen/compose.yaml up -d
 ```
 #### Wechsel in den Container
 ```bash
-docker exec -ti 01_voraussetzungen_sp_1 bash
+docker exec -ti 01_voraussetzungen-sp-1 bash
 ```
 #### Stoppen und Container aufräumen
 ```bash
-docker-compose -f 01_voraussetzungen/docker-compose.yml down
+docker compose -f 01_voraussetzungen/compose.yaml down
 ```
 
 ## Kein Docker
-Das jeweilige `Dockerfile` inklusive der Dateien unter `resources` kann auch als Schritt für Schritt Anleitung für ein Ubuntu 20.04 verwendet werden.
+Das jeweilige `Dockerfile` inklusive der Dateien unter `resources` kann auch als Schritt für Schritt Anleitung für ein Ubuntu 22.04 verwendet werden.
 
 ## Links
 * [SimpleSAMLphp Dokumentation](https://simplesamlphp.org/docs/stable/)
