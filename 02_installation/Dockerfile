@@ -1,18 +1,25 @@
-ARG BBX_APACHE_VERSION=2.4.41*
-ARG BBX_PHP_VERSION=7.4
-ARG BBX_SSP_VERSION=1.19.0
-ARG BBX_SSP_CHECKSUM=2111129787a4baf27a51e52bda660c56d069f167354800bffc72440dcacb3a6f
+ARG BBX_APACHE_VERSION=2.4.52*
+ARG BBX_PHP_VERSION=8.1
 
-FROM ubuntu:20.04 AS build
+ARG BBX_SSP_VERSION=2.0.0
+ARG BBX_SSP_CHECKSUM=e2a6e1d143bdb47adf068f6c066f8b69a938f07f3b98813c87dbf8dfa5a81654
+
+FROM ubuntu:22.04 AS build
 MAINTAINER Frank Tröger <frank.troeger@fau.de>
 
 ARG BBX_APACHE_VERSION
 ARG BBX_PHP_VERSION
+
 ARG BBX_SSP_VERSION
 ARG BBX_SSP_CHECKSUM
 
+# env vars
 ENV TERM xterm
 ENV BBX_PHP_VERSION=$BBX_PHP_VERSION
+
+# set local mirror - can be skipped, of course
+RUN set -ex \
+    && sed "s/archive\.ubuntu\.com/ftp.uni-erlangen.de\/pub\/mirrors/" -i /etc/apt/sources.list
 
 RUN set -ex \
     && export DEBIAN_FRONTEND=noninteractive \
@@ -54,12 +61,6 @@ RUN set -ex \
         supervisor \
         unzip
 
-# get dfn ca cert chain
-WORKDIR /usr/local/share/ca-certificates
-RUN set -ex \
-    && wget -O dfnchain-g2.crt https://pki.pca.dfn.de/dfn-ca-global-g2/pub/cacert/chain.txt \
-    && update-ca-certificates
-
 # install SimpleSAMLphp
 WORKDIR /var
 RUN set -ex \
@@ -69,11 +70,11 @@ RUN set -ex \
     && mv simplesamlphp-${BBX_SSP_VERSION} simplesamlphp \
     && rm simplesamlphp-${BBX_SSP_VERSION}.tar.gz
 
-COPY resources/ /
-
+WORKDIR /var/simplesamlphp
 RUN set -ex \
-    && chmod 644 /etc/logrotate.d/apache2 \
-    && chmod 644 /etc/logrotate.d/rsyslog
+    && cp config/config.php.dist config/config.php
+
+COPY resources/ /
 
 RUN set -ex \
     && a2enmod headers rewrite ssl \

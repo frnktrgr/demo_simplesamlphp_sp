@@ -1,7 +1,7 @@
 # Voraussetzungen
 
 ## Links
-* [SimpleSAMLphp Documentation > Installation and upgrading > Prerequisites](https://simplesamlphp.org/docs/stable/simplesamlphp-install#section_1)
+* [SimpleSAMLphp Documentation > Installing SimpleSAMLphp > Prerequisites](https://simplesamlphp.org/docs/stable/simplesamlphp-install#prerequisites)
 
 ## Bereitgestellte Umgebung
 * OS
