@@ -12,12 +12,12 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Hinzugefügt
-* [resources/var/simplesamlphp](../../../blob/main/02_installation/resources/var/simplesamlphp)
+* [resources/var/simplesamlphp](../../../blob/simplesamlphp-2.0/02_installation/resources/var/simplesamlphp)
 
 ### Änderungen
-* [docker-compose.yml](../../../blob/main/02_installation/docker-compose.yml):
+* [compose.yaml](../../../blob/simplesamlphp-2.0/02_installation/compose.yaml):
 ```diff
-@@ -7,9 +7,11 @@
+@@ -6,9 +6,11 @@
        - "443:443"
      volumes:
        - var_log:/var/log
@@ -30,27 +30,30 @@
    var_log:
 +  var_simplesamlphp:
 ```
-* [Dockerfile](../../../blob/main/02_installation/Dockerfile):
+* [Dockerfile](../../../blob/simplesamlphp-2.0/02_installation/Dockerfile):
 ```diff
-@@ -1,11 +1,15 @@
- ARG BBX_APACHE_VERSION=2.4.41*
- ARG BBX_PHP_VERSION=7.4
-+ARG BBX_SSP_VERSION=1.19.0
-+ARG BBX_SSP_CHECKSUM=2111129787a4baf27a51e52bda660c56d069f167354800bffc72440dcacb3a6f
+@@ -1,12 +1,18 @@
+ ARG BBX_APACHE_VERSION=2.4.52*
+ ARG BBX_PHP_VERSION=8.1
  
- FROM ubuntu:20.04 AS build
++ARG BBX_SSP_VERSION=2.0.0
++ARG BBX_SSP_CHECKSUM=e2a6e1d143bdb47adf068f6c066f8b69a938f07f3b98813c87dbf8dfa5a81654
++
+ FROM ubuntu:22.04 AS build
  MAINTAINER Frank Tröger <frank.troeger@fau.de>
  
  ARG BBX_APACHE_VERSION
  ARG BBX_PHP_VERSION
+ 
 +ARG BBX_SSP_VERSION
 +ARG BBX_SSP_CHECKSUM
- 
++
+ # env vars
  ENV TERM xterm
  ENV BBX_PHP_VERSION=$BBX_PHP_VERSION
-@@ -56,6 +60,15 @@
-     && wget -O dfnchain-g2.crt https://pki.pca.dfn.de/dfn-ca-global-g2/pub/cacert/chain.txt \
-     && update-ca-certificates
+@@ -55,6 +61,19 @@
+         supervisor \
+         unzip
  
 +# install SimpleSAMLphp
 +WORKDIR /var
@@ -61,10 +64,14 @@
 +    && mv simplesamlphp-${BBX_SSP_VERSION} simplesamlphp \
 +    && rm simplesamlphp-${BBX_SSP_VERSION}.tar.gz
 +
++WORKDIR /var/simplesamlphp
++RUN set -ex \
++    && cp config/config.php.dist config/config.php
++
  COPY resources/ /
  
  RUN set -ex \
-@@ -69,7 +82,7 @@
+@@ -64,7 +83,7 @@
      && a2ensite sso-dev.fau.de sso-dev.fau.de-ssl \
      && rm /var/www/html/index.html
  
@@ -74,25 +81,24 @@
  EXPOSE 80/tcp 443/tcp
  
 ```
-* [resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf](../../../blob/main/02_installation/resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf):
+* [resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf](../../../blob/simplesamlphp-2.0/02_installation/resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf):
 ```diff
-@@ -36,6 +36,14 @@
+@@ -35,6 +35,13 @@
  
          RewriteCond %{HTTP_HOST} !^sso-dev\.fau\.de [NC]
          RewriteRule ^/(.*) https://sso-dev.fau.de/$1  [R,L]
 +
 +        SetEnv SIMPLESAMLPHP_CONFIG_DIR /var/simplesamlphp/config
 +
-+        Alias /simplesaml /var/simplesamlphp/www
-+
-+        <Directory /var/simplesamlphp/www>
++        Alias /simplesaml /var/simplesamlphp/public
++        <Directory /var/simplesamlphp/public>
 +            Require all granted
 +        </Directory>
      </VirtualHost>
  </IfModule>
  
 ```
-* [resources/var/www/html/index.php](../../../blob/main/02_installation/resources/var/www/html/index.php):
+* [resources/var/www/html/index.php](../../../blob/simplesamlphp-2.0/02_installation/resources/var/www/html/index.php):
 ```diff
 @@ -37,6 +37,7 @@
                  <ul class="navbar-nav">

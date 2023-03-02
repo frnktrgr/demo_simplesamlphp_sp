@@ -58,10 +58,6 @@ RUN set -ex \
 COPY resources/ /
 
 RUN set -ex \
-    && chmod 644 /etc/logrotate.d/apache2 \
-    && chmod 644 /etc/logrotate.d/rsyslog
-
-RUN set -ex \
     && a2enmod headers rewrite ssl \
     && a2enconf ssl-stapling \
     && a2dissite 000-default \
