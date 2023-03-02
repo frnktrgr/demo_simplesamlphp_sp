@@ -6,7 +6,7 @@ Software [SimpleSAMLphp](https://simplesamlphp.org/) als Service Provider in der
 
 ## Aktualisierung auf SimpleSAMLphp 2.0
 Die Original-Schulungsunterlagen beziehen sich auf SimpleSAMLphp 1.19 und sind weiterhin im Branch
-[simplesamlphp-1.19](/frnktrgr/demo_simplesamlphp_sp/tree/simplesamlphp-1.19) verfügbar.
+[simplesamlphp-1.19](https://github.com/frnktrgr/demo_simplesamlphp_sp/tree/simplesamlphp-2.0) verfügbar.
 
 ## Schulung
 
@@ -65,6 +65,7 @@ find /opt/simplesamlphp_sp/
 /opt/simplesamlphp_sp/sso-dev.fau.de.pem
 /opt/simplesamlphp_sp/dfn-aai.pem
 ```
+(`/opt/simplesamlphp_sp/dfn-aai.pem` from https://www.aai.dfn.de/metadata/dfn-aai.pem)
 
 ### Testen
 Zum Beispiel für [01 Voraussetzungen](01_voraussetzungen):
