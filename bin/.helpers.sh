@@ -102,3 +102,40 @@ function resetHosts() {
     echoinfo "mkdir -p ~/.ddk-hosts && cp /etc/hosts ~/.ddk-hosts/default"
   fi
 }
+
+function getVolumeMountpoint() {
+  docker volume inspect --format '{{ .Mountpoint }}' "$1" 2>/dev/null
+}
+
+function checkAndSetPermissions() {
+  parent=""
+  for part in $(echo "$1" | tr '/' ' ')
+  do
+    parent="${parent}/${part}"
+    test -r "${parent}" -a -x "${parent}" || sudoandlog "setfacl -m u:${USER}:rx ${parent}"
+  done
+  sudoandlog "setfacl -R -m u:${USER}:rwx ${parent}"
+}
+
+function setVolumePermissions() {
+  mountpoint=$(getVolumeMountpoint "$1")
+  if [ -n "${mountpoint}" ]
+  then
+    checkAndSetPermissions "${mountpoint}"
+    return 0
+  else
+    echo "skipping '${1}', no such volume"
+    return 1
+  fi
+}
+
+function linkVolume() {
+  volume="${1}_${2}"
+  if setVolumePermissions "${volume}"
+  then
+    doandlog "mkdir -p ${1}/volumes"
+    doandlog "cp bin/voltemplate.gitignore ${1}/volumes/.gitignore"
+    doandlog "rm -f ${1}/volumes/${2}"
+    doandlog "ln -f -s $(getVolumeMountpoint "${volume}") ${1}/volumes/${2}"
+  fi
+}
