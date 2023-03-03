@@ -2,6 +2,8 @@
 
 ## Links
 * [SimpleSAMLphp Documentation > Installing SimpleSAMLphp > Download and install SimpleSAMLphp](https://simplesamlphp.org/docs/stable/simplesamlphp-install.html#download-and-install-simplesamlphp)
+* [SimpleSAMLphp Documentation > Installing SimpleSAMLphp > Configuration](https://simplesamlphp.org/docs/stable/simplesamlphp-install.html#configuration)
+* [SimpleSAMLphp Documentation > Installing SimpleSAMLphp > Configuring Apache](https://simplesamlphp.org/docs/stable/simplesamlphp-install.html#configuring-apache)
 
 ## Teilschritte
 * Installation

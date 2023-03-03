@@ -1,14 +1,18 @@
 # Konfiguration
 
 ## Links
-* [SimpleSAMLphp Documentation > Installing SimpleSAMLphp > SimpleSAMLphp configuration: config.php](https://simplesamlphp.org/docs/stable/simplesamlphp-install#section_7)
+* [SimpleSAMLphp Documentation > Installing SimpleSAMLphp > Configuration](https://simplesamlphp.org/docs/stable/simplesamlphp-install.html#configuration)
+* [SimpleSAMLphp Documentation > Installing SimpleSAMLphp > Configuring Apache](https://simplesamlphp.org/docs/stable/simplesamlphp-install.html#configuring-apache)
+* [SimpleSAMLphp Documentation > Installing SimpleSAMLphp > SimpleSAMLphp configuration: config.php](https://simplesamlphp.org/docs/stable/simplesamlphp-install.html#simplesamlphp-configuration-configphp)
+* [SimpleSAMLphp Documentation > Installing SimpleSAMLphp > Configuring PHP](https://simplesamlphp.org/docs/stable/simplesamlphp-install.html#configuring-php)
+* [SimpleSAMLphp Documentation > Installing SimpleSAMLphp > Enabling and disabling modules](https://simplesamlphp.org/docs/stable/simplesamlphp-install.html#enabling-and-disabling-modules)
+* [SimpleSAMLphp Documentation > Installing SimpleSAMLphp > The SimpleSAMLphp admin interface](https://simplesamlphp.org/docs/stable/simplesamlphp-install.html#the-simplesamlphp-admin-interface)
 
 ## Teilschritte
 * `baseurlpath`
 * `config/config.php`
 * PHP Konfiguration - Versenden von E-Mails (siehe Link)
 * Module (de)aktivieren (siehe Link)
-* npm (siehe Link)
 * Oberfläche
 
 [//]: # (AUTOGENERATE START)
