@@ -134,7 +134,7 @@ function linkVolume() {
   if setVolumePermissions "${volume}"
   then
     doandlog "mkdir -p ${1}/volumes"
-    doandlog "cp bin/voltemplate.gitignore ${1}/volumes/.gitignore"
+    doandlog "cp bin/.voltemplate.gitignore ${1}/volumes/.gitignore"
     doandlog "rm -f ${1}/volumes/${2}"
     doandlog "ln -f -s $(getVolumeMountpoint "${volume}") ${1}/volumes/${2}"
   fi
