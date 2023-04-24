@@ -9,7 +9,7 @@ $httpUtils = new \SimpleSAML\Utils\HTTP();
 $config = [
 
     /*******************************
-     | BASIC CONFIGURATION OPTIONS |
+    | BASIC CONFIGURATION OPTIONS |
      *******************************/
 
     /*
@@ -176,7 +176,7 @@ $config = [
 
 
     /**********************************
-     | SECURITY CONFIGURATION OPTIONS |
+    | SECURITY CONFIGURATION OPTIONS |
      **********************************/
 
     /*
@@ -269,7 +269,7 @@ $config = [
 
 
     /************************
-     | ERRORS AND DEBUGGING |
+    | ERRORS AND DEBUGGING |
      ************************/
 
     /*
@@ -329,7 +329,7 @@ $config = [
 
 
     /**************************
-     | LOGGING AND STATISTICS |
+    | LOGGING AND STATISTICS |
      **************************/
 
     /*
@@ -427,7 +427,7 @@ $config = [
 
 
     /***********************
-     | PROXY CONFIGURATION |
+    | PROXY CONFIGURATION |
      ***********************/
 
     /*
@@ -448,7 +448,7 @@ $config = [
 
 
     /**************************
-     | DATABASE CONFIGURATION |
+    | DATABASE CONFIGURATION |
      **************************/
 
     /*
@@ -510,7 +510,7 @@ $config = [
 
 
     /*************
-     | PROTOCOLS |
+    | PROTOCOLS |
      *************/
 
     /*
@@ -524,7 +524,7 @@ $config = [
 
 
     /***********
-     | MODULES |
+    | MODULES |
      ***********/
 
     /*
@@ -548,7 +548,7 @@ $config = [
 
 
     /*************************
-     | SESSION CONFIGURATION |
+    | SESSION CONFIGURATION |
      *************************/
 
     /*
@@ -672,7 +672,7 @@ $config = [
 
 
     /**************************
-     | MEMCACHE CONFIGURATION |
+    | MEMCACHE CONFIGURATION |
      **************************/
 
     /*
@@ -794,7 +794,7 @@ $config = [
 
 
     /*************************************
-     | LANGUAGE AND INTERNATIONALIZATION |
+    | LANGUAGE AND INTERNATIONALIZATION |
      *************************************/
 
     /*
@@ -838,7 +838,7 @@ $config = [
      */
 
     /**************
-     | APPEARANCE |
+    | APPEARANCE |
      **************/
 
     /*
@@ -924,7 +924,7 @@ $config = [
     //'frontpage.redirect' => 'https://example.com/',
 
     /*********************
-     | DISCOVERY SERVICE |
+    | DISCOVERY SERVICE |
      *********************/
 
     /*
@@ -955,7 +955,7 @@ $config = [
 
 
     /*************************************
-     | AUTHENTICATION PROCESSING FILTERS |
+    | AUTHENTICATION PROCESSING FILTERS |
      *************************************/
 
     /*
@@ -1045,7 +1045,7 @@ $config = [
 
 
     /**************************
-     | METADATA CONFIGURATION |
+    | METADATA CONFIGURATION |
      **************************/
 
     /*
@@ -1166,7 +1166,7 @@ $config = [
 
 
     /****************************
-     | DATA STORE CONFIGURATION |
+    | DATA STORE CONFIGURATION |
      ****************************/
 
     /*
@@ -1247,7 +1247,7 @@ $config = [
     'store.redis.sentinels' => [],
 
     /*********************
-     | IdP/SP PROXY MODE |
+    | IdP/SP PROXY MODE |
      *********************/
 
     /*
