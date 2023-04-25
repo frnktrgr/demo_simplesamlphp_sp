@@ -19,12 +19,7 @@
 ### Änderungen
 * [compose.yaml](../../../blob/simplesamlphp-2.0/04_serviceprovider/compose.yaml):
 ```diff
-@@ -1,3 +1,4 @@
-+version: '3'
- services:
-   sp:
-     build: .
-@@ -9,6 +10,8 @@
+@@ -9,6 +9,8 @@
        - var_simplesamlphp:/var/simplesamlphp
        - /opt/simplesamlphp_sp/sso-dev.fau.de.crt:/etc/ssl/certs/sso-dev.fau.de.crt
        - /opt/simplesamlphp_sp/sso-dev.fau.de.pem:/etc/ssl/private/sso-dev.fau.de.pem
