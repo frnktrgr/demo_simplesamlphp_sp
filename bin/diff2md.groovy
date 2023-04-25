@@ -48,7 +48,7 @@ def diff2md = { from, to ->
 def steps = [
         '02_installation': "01_voraussetzungen",
         '03_konfiguration': "02_installation",
-//        '04_serviceprovider': "03_konfiguration",
+        '04_serviceprovider': "03_konfiguration",
 //        '05_integration': "04_serviceprovider",
 //        '06_metarefresh': "05_integration",
 //        '07_authproc': "06_metarefresh",
