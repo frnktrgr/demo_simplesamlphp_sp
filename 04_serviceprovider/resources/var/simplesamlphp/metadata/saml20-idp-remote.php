@@ -84,7 +84,6 @@ $metadata['https://testidp2.aai.dfn.de/idp/shibboleth'] = [
                 ],
         ],
     'metadata-set' => 'saml20-idp-remote',
-    'expire' => 1682834477,
     'SingleSignOnService' =>
         [
             0 =>
@@ -207,7 +206,6 @@ $metadata['https://testidp2.aai.dfn.de/idp/shibboleth'] = [
     'authproc' =>
         [
         ],
-    'metarefresh:src' => 'http://www.aai.dfn.de/metadata/dfn-aai-test-metadata.xml',
 ];
 
 $metadata['https://www.sso.uni-erlangen.de/simplesaml/saml2/idp/metadata.php'] = [
