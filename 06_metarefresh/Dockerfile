@@ -1,18 +1,25 @@
-ARG BBX_APACHE_VERSION=2.4.41*
-ARG BBX_PHP_VERSION=7.4
-ARG BBX_SSP_VERSION=1.19.0
-ARG BBX_SSP_CHECKSUM=2111129787a4baf27a51e52bda660c56d069f167354800bffc72440dcacb3a6f
+ARG BBX_APACHE_VERSION=2.4.52*
+ARG BBX_PHP_VERSION=8.1
 
-FROM ubuntu:20.04 AS build
+ARG BBX_SSP_VERSION=2.0.3
+ARG BBX_SSP_CHECKSUM=ca06d22d265fb75ee0f91d1e013db167dcc33ee449d03a81bd20160f899273cf
+
+FROM ubuntu:22.04 AS build
 MAINTAINER Frank Tröger <frank.troeger@fau.de>
 
 ARG BBX_APACHE_VERSION
 ARG BBX_PHP_VERSION
+
 ARG BBX_SSP_VERSION
 ARG BBX_SSP_CHECKSUM
 
+# env vars
 ENV TERM xterm
 ENV BBX_PHP_VERSION=$BBX_PHP_VERSION
+
+# set local mirror - can be skipped, of course
+RUN set -ex \
+    && sed "s/archive\.ubuntu\.com/ftp.uni-erlangen.de\/pub\/mirrors/" -i /etc/apt/sources.list
 
 RUN set -ex \
     && export DEBIAN_FRONTEND=noninteractive \
@@ -54,12 +61,6 @@ RUN set -ex \
         supervisor \
         unzip
 
-# get dfn ca cert chain
-WORKDIR /usr/local/share/ca-certificates
-RUN set -ex \
-    && wget -O dfnchain-g2.crt https://pki.pca.dfn.de/dfn-ca-global-g2/pub/cacert/chain.txt \
-    && update-ca-certificates
-
 # install SimpleSAMLphp
 WORKDIR /var
 RUN set -ex \
@@ -69,20 +70,20 @@ RUN set -ex \
     && mv simplesamlphp-${BBX_SSP_VERSION} simplesamlphp \
     && rm simplesamlphp-${BBX_SSP_VERSION}.tar.gz
 
-COPY resources/ /
-
+WORKDIR /var/simplesamlphp
 RUN set -ex \
-    && chmod 644 /etc/cron.d/simplesamlphp \
-    && chmod 644 /etc/logrotate.d/apache2 \
-    && chmod 644 /etc/logrotate.d/rsyslog
+    && cp config/config.php.dist config/config.php \
+    && cp config/authsources.php.dist config/authsources.php \
+    && cp modules/cron/config/module_cron.php.dist config/module_cron.php
+
+COPY resources/ /
 
 RUN set -ex \
     && a2enmod headers rewrite ssl \
     && a2enconf ssl-stapling \
     && a2dissite 000-default \
     && a2ensite sso-dev.fau.de sso-dev.fau.de-ssl \
-    && rm /var/www/html/index.html \
-    && chown www-data /var/simplesamlphp/metadata
+    && rm /var/www/html/index.html
 
 WORKDIR /var/simplesamlphp
 

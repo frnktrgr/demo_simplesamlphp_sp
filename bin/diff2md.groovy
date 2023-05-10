@@ -50,7 +50,7 @@ def steps = [
         '03_konfiguration': "02_installation",
         '04_serviceprovider': "03_konfiguration",
         '05_integration': "04_serviceprovider",
-//        '06_metarefresh': "05_integration",
+        '06_metarefresh': "05_integration",
 //        '07_authproc': "06_metarefresh",
 //        '08_production': "07_authproc",
 //        '09_extras': "08_production",

@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once('../../simplesamlphp/lib/_autoload.php');
+require_once('../../simplesamlphp/src/_autoload.php');
 $as = new \SimpleSAML\Auth\Simple('default-sp');
 $attributes = $as->getAttributes();
-SimpleSAML_Session::getSessionFromRequest()->cleanup();
+\SimpleSAML\Session::getSessionFromRequest()->cleanup();
 $_SESSION["timestamp"] = date(DATE_RFC822);
 ?>
 
@@ -92,10 +92,10 @@ $_SESSION["timestamp"] = date(DATE_RFC822);
                 <div class="accordion-body">
                     <span class="font-monospace">index.php</span>
                     <pre><code class="language-php">session_start();
-require_once('../../simplesamlphp/lib/_autoload.php');
+require_once('../../simplesamlphp/src/_autoload.php');
 $as = new \SimpleSAML\Auth\Simple('default-sp');
 $attributes = $as->getAttributes();
-SimpleSAML_Session::getSessionFromRequest()->cleanup();
+\SimpleSAML\Session::getSessionFromRequest()->cleanup();
 $_SESSION["timestamp"] = date(DATE_RFC822);</code></pre>
                     <span class="font-monospace">logout.php</span>
                     <pre><code class="language-php"><?php echo htmlspecialchars(file_get_contents('logout.php')); ?></code></pre>

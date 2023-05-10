@@ -1,4 +1,4 @@
 # Run cron [daily]
-02 0 * * * root curl --silent "https://sso-dev.fau.de/devssp/module.php/cron/cron.php?key=r34uef8ti6ti38396w7vt0nfcq62tgbb&tag=daily" > /dev/null 2>&1
+02 0 * * * root curl -sS "https://sso-dev.fau.de/devssp/module.php/cron/run/daily/r34uef8ti6ti38396w7vt0nfcq62tgbb"
 # Run cron [hourly]
-01 * * * * root curl --silent "https://sso-dev.fau.de/devssp/module.php/cron/cron.php?key=r34uef8ti6ti38396w7vt0nfcq62tgbb&tag=hourly" > /dev/null 2>&1
+01 * * * * root curl -sS "https://sso-dev.fau.de/devssp/module.php/cron/run/hourly/r34uef8ti6ti38396w7vt0nfcq62tgbb"
