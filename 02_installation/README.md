@@ -14,10 +14,10 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Hinzugefügt
-* [resources/var/simplesamlphp](../../../blob/simplesamlphp-2.0/02_installation/resources/var/simplesamlphp)
+* [resources/var/simplesamlphp](../../../blob/main/02_installation/resources/var/simplesamlphp)
 
 ### Änderungen
-* [compose.yaml](../../../blob/simplesamlphp-2.0/02_installation/compose.yaml):
+* [compose.yaml](../../../blob/main/02_installation/compose.yaml):
 ```diff
 @@ -6,9 +6,11 @@
        - "443:443"
@@ -32,14 +32,14 @@
    var_log:
 +  var_simplesamlphp:
 ```
-* [Dockerfile](../../../blob/simplesamlphp-2.0/02_installation/Dockerfile):
+* [Dockerfile](../../../blob/main/02_installation/Dockerfile):
 ```diff
 @@ -1,12 +1,18 @@
  ARG BBX_APACHE_VERSION=2.4.52*
  ARG BBX_PHP_VERSION=8.1
  
-+ARG BBX_SSP_VERSION=2.0.3
-+ARG BBX_SSP_CHECKSUM=ca06d22d265fb75ee0f91d1e013db167dcc33ee449d03a81bd20160f899273cf
++ARG BBX_SSP_VERSION=2.0.4
++ARG BBX_SSP_CHECKSUM=10f50ae5165b044cd4c78de3c118a025ecf47586e428f16b340933f9d44ab52c
 +
  FROM ubuntu:22.04 AS build
  MAINTAINER Frank Tröger <frank.troeger@fau.de>
@@ -83,7 +83,7 @@
  EXPOSE 80/tcp 443/tcp
  
 ```
-* [resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf](../../../blob/simplesamlphp-2.0/02_installation/resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf):
+* [resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf](../../../blob/main/02_installation/resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf):
 ```diff
 @@ -35,6 +35,13 @@
  
@@ -100,7 +100,7 @@
  </IfModule>
  
 ```
-* [resources/var/www/html/index.php](../../../blob/simplesamlphp-2.0/02_installation/resources/var/www/html/index.php):
+* [resources/var/www/html/index.php](../../../blob/main/02_installation/resources/var/www/html/index.php):
 ```diff
 @@ -37,6 +37,7 @@
                  <ul class="navbar-nav">

@@ -11,7 +11,7 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Änderungen
-* [resources/var/simplesamlphp/config/authsources.php](../../../blob/simplesamlphp-2.0/08_production/resources/var/simplesamlphp/config/authsources.php):
+* [resources/var/simplesamlphp/config/authsources.php](../../../blob/main/08_production/resources/var/simplesamlphp/config/authsources.php):
 ```diff
 @@ -42,7 +42,7 @@
  
@@ -303,7 +303,7 @@
 -    */
  ];
 ```
-* [resources/var/simplesamlphp/config/config.php](../../../blob/simplesamlphp-2.0/08_production/resources/var/simplesamlphp/config/config.php):
+* [resources/var/simplesamlphp/config/config.php](../../../blob/main/08_production/resources/var/simplesamlphp/config/config.php):
 ```diff
 @@ -304,7 +304,7 @@
       * empty array.
@@ -360,7 +360,7 @@
  
  
 ```
-* [resources/var/simplesamlphp/config/module_metarefresh.php](../../../blob/simplesamlphp-2.0/08_production/resources/var/simplesamlphp/config/module_metarefresh.php):
+* [resources/var/simplesamlphp/config/module_metarefresh.php](../../../blob/main/08_production/resources/var/simplesamlphp/config/module_metarefresh.php):
 ```diff
 @@ -6,6 +6,11 @@
              'cron'		=> ['hourly'],

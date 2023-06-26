@@ -18,13 +18,13 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Hinzugefügt
-* [resources/etc/logrotate.d](../../../blob/simplesamlphp-2.0/03_konfiguration/resources/etc/logrotate.d)
-* [resources/etc/rsyslog.d](../../../blob/simplesamlphp-2.0/03_konfiguration/resources/etc/rsyslog.d)
-* [resources/var/simplesamlphp/config/authsources.php](../../../blob/simplesamlphp-2.0/03_konfiguration/resources/var/simplesamlphp/config/authsources.php)
-* [resources/var/simplesamlphp/metadata](../../../blob/simplesamlphp-2.0/03_konfiguration/resources/var/simplesamlphp/metadata)
+* [resources/etc/logrotate.d](../../../blob/main/03_konfiguration/resources/etc/logrotate.d)
+* [resources/etc/rsyslog.d](../../../blob/main/03_konfiguration/resources/etc/rsyslog.d)
+* [resources/var/simplesamlphp/config/authsources.php](../../../blob/main/03_konfiguration/resources/var/simplesamlphp/config/authsources.php)
+* [resources/var/simplesamlphp/metadata](../../../blob/main/03_konfiguration/resources/var/simplesamlphp/metadata)
 
 ### Änderungen
-* [resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf](../../../blob/simplesamlphp-2.0/03_konfiguration/resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf):
+* [resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf](../../../blob/main/03_konfiguration/resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf):
 ```diff
 @@ -38,7 +38,7 @@
  
@@ -36,7 +36,7 @@
              Require all granted
          </Directory>
 ```
-* [resources/var/simplesamlphp/config/config.php](../../../blob/simplesamlphp-2.0/03_konfiguration/resources/var/simplesamlphp/config/config.php):
+* [resources/var/simplesamlphp/config/config.php](../../../blob/main/03_konfiguration/resources/var/simplesamlphp/config/config.php):
 ```diff
 @@ -31,7 +31,7 @@
       * external url, no matter where you come from (direct access or via the
@@ -111,7 +111,7 @@
      /*
       * Options to override the default settings for the language parameter
 ```
-* [resources/var/www/html/index.php](../../../blob/simplesamlphp-2.0/03_konfiguration/resources/var/www/html/index.php):
+* [resources/var/www/html/index.php](../../../blob/main/03_konfiguration/resources/var/www/html/index.php):
 ```diff
 @@ -37,7 +37,7 @@
                  <ul class="navbar-nav">

@@ -17,7 +17,7 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Änderungen
-* [compose.yaml](../../../blob/simplesamlphp-2.0/04_serviceprovider/compose.yaml):
+* [compose.yaml](../../../blob/main/04_serviceprovider/compose.yaml):
 ```diff
 @@ -9,6 +9,8 @@
        - var_simplesamlphp:/var/simplesamlphp
@@ -29,7 +29,7 @@
      network_mode: bridge
  volumes:
 ```
-* [Dockerfile](../../../blob/simplesamlphp-2.0/04_serviceprovider/Dockerfile):
+* [Dockerfile](../../../blob/main/04_serviceprovider/Dockerfile):
 ```diff
 @@ -72,7 +72,8 @@
  
@@ -42,7 +42,7 @@
  COPY resources/ /
  
 ```
-* [resources/var/simplesamlphp/config/authsources.php](../../../blob/simplesamlphp-2.0/04_serviceprovider/resources/var/simplesamlphp/config/authsources.php):
+* [resources/var/simplesamlphp/config/authsources.php](../../../blob/main/04_serviceprovider/resources/var/simplesamlphp/config/authsources.php):
 ```diff
 @@ -27,7 +27,14 @@
          'saml:SP',
@@ -111,7 +111,7 @@
  
  
 ```
-* [resources/var/simplesamlphp/metadata/saml20-idp-remote.php](../../../blob/simplesamlphp-2.0/04_serviceprovider/resources/var/simplesamlphp/metadata/saml20-idp-remote.php):
+* [resources/var/simplesamlphp/metadata/saml20-idp-remote.php](../../../blob/main/04_serviceprovider/resources/var/simplesamlphp/metadata/saml20-idp-remote.php):
 ```diff
 @@ -7,3 +7,242 @@
   *

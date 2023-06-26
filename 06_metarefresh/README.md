@@ -12,12 +12,12 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Hinzugefügt
-* [resources/etc/cron.d](../../../blob/simplesamlphp-2.0/06_metarefresh/resources/etc/cron.d)
-* [resources/var/simplesamlphp/config/module_cron.php](../../../blob/simplesamlphp-2.0/06_metarefresh/resources/var/simplesamlphp/config/module_cron.php)
-* [resources/var/simplesamlphp/config/module_metarefresh.php](../../../blob/simplesamlphp-2.0/06_metarefresh/resources/var/simplesamlphp/config/module_metarefresh.php)
+* [resources/etc/cron.d](../../../blob/main/06_metarefresh/resources/etc/cron.d)
+* [resources/var/simplesamlphp/config/module_cron.php](../../../blob/main/06_metarefresh/resources/var/simplesamlphp/config/module_cron.php)
+* [resources/var/simplesamlphp/config/module_metarefresh.php](../../../blob/main/06_metarefresh/resources/var/simplesamlphp/config/module_metarefresh.php)
 
 ### Änderungen
-* [compose.yaml](../../../blob/simplesamlphp-2.0/06_metarefresh/compose.yaml):
+* [compose.yaml](../../../blob/main/06_metarefresh/compose.yaml):
 ```diff
 @@ -11,6 +11,7 @@
        - /opt/simplesamlphp_sp/sso-dev.fau.de.pem:/etc/ssl/private/sso-dev.fau.de.pem
@@ -28,11 +28,11 @@
      network_mode: bridge
  volumes:
 ```
-* [Dockerfile](../../../blob/simplesamlphp-2.0/06_metarefresh/Dockerfile):
+* [Dockerfile](../../../blob/main/06_metarefresh/Dockerfile):
 ```diff
 @@ -4,6 +4,9 @@
- ARG BBX_SSP_VERSION=2.0.3
- ARG BBX_SSP_CHECKSUM=ca06d22d265fb75ee0f91d1e013db167dcc33ee449d03a81bd20160f899273cf
+ ARG BBX_SSP_VERSION=2.0.4
+ ARG BBX_SSP_CHECKSUM=10f50ae5165b044cd4c78de3c118a025ecf47586e428f16b340933f9d44ab52c
  
 +ARG BBX_COMPOSER_VERSION=2.5.8
 +ARG BBX_COMPOSER_CHECKSUM=f07934fad44f9048c0dc875a506cca31cc2794d6aebfc1867f3b1fbf48dce2c5
@@ -99,7 +99,7 @@
  WORKDIR /var/simplesamlphp
  
 ```
-* [resources/startup.sh](../../../blob/simplesamlphp-2.0/06_metarefresh/resources/startup.sh):
+* [resources/startup.sh](../../../blob/main/06_metarefresh/resources/startup.sh):
 ```diff
 @@ -16,6 +16,15 @@
  
@@ -118,7 +118,7 @@
  exec /usr/bin/supervisord > /dev/null 2>&1 &
  child=$!
 ```
-* [resources/var/simplesamlphp/config/authsources.php](../../../blob/simplesamlphp-2.0/06_metarefresh/resources/var/simplesamlphp/config/authsources.php):
+* [resources/var/simplesamlphp/config/authsources.php](../../../blob/main/06_metarefresh/resources/var/simplesamlphp/config/authsources.php):
 ```diff
 @@ -42,7 +42,7 @@
  
@@ -130,7 +130,7 @@
          /*
           * If SP behind the SimpleSAMLphp in IdP/SP proxy mode requests
 ```
-* [resources/var/simplesamlphp/config/config.php](../../../blob/simplesamlphp-2.0/06_metarefresh/resources/var/simplesamlphp/config/config.php):
+* [resources/var/simplesamlphp/config/config.php](../../../blob/main/06_metarefresh/resources/var/simplesamlphp/config/config.php):
 ```diff
 @@ -543,7 +543,9 @@
          'exampleauth' => false,
@@ -153,7 +153,7 @@
  
      /*
 ```
-* [resources/var/simplesamlphp/metadata/saml20-idp-remote.php](../../../blob/simplesamlphp-2.0/06_metarefresh/resources/var/simplesamlphp/metadata/saml20-idp-remote.php):
+* [resources/var/simplesamlphp/metadata/saml20-idp-remote.php](../../../blob/main/06_metarefresh/resources/var/simplesamlphp/metadata/saml20-idp-remote.php):
 ```diff
 @@ -8,241 +8,241 @@
   * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-remote

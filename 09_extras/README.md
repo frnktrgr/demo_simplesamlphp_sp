@@ -22,7 +22,7 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Änderungen
-* [Dockerfile](../../../blob/simplesamlphp-2.0/09_extras/Dockerfile):
+* [Dockerfile](../../../blob/main/09_extras/Dockerfile):
 ```diff
 @@ -64,6 +64,7 @@
          php${BBX_PHP_VERSION}-curl \
@@ -33,7 +33,7 @@
          rsyslog \
          supervisor \
 ```
-* [resources/startup.sh](../../../blob/simplesamlphp-2.0/09_extras/resources/startup.sh):
+* [resources/startup.sh](../../../blob/main/09_extras/resources/startup.sh):
 ```diff
 @@ -25,6 +25,12 @@
  echogood "Setting PHP max execution time to ${PHPMAXEXECUTIONTIME}"

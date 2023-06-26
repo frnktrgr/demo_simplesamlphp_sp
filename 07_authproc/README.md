@@ -11,7 +11,7 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Änderungen
-* [resources/var/simplesamlphp/config/config.php](../../../blob/simplesamlphp-2.0/07_authproc/resources/var/simplesamlphp/config/config.php):
+* [resources/var/simplesamlphp/config/config.php](../../../blob/main/07_authproc/resources/var/simplesamlphp/config/config.php):
 ```diff
 @@ -1019,6 +1019,9 @@
       * Authentication processing filters that will be executed for all SPs
@@ -24,7 +24,7 @@
          10 => [
              'class' => 'core:AttributeMap', 'removeurnprefix'
 ```
-* [resources/var/simplesamlphp/config/module_metarefresh.php](../../../blob/simplesamlphp-2.0/07_authproc/resources/var/simplesamlphp/config/module_metarefresh.php):
+* [resources/var/simplesamlphp/config/module_metarefresh.php](../../../blob/main/07_authproc/resources/var/simplesamlphp/config/module_metarefresh.php):
 ```diff
 @@ -11,6 +11,15 @@
                      //'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
@@ -59,7 +59,7 @@
  				],
  			],
 ```
-* [resources/var/www/html/mapa_sso.php](../../../blob/simplesamlphp-2.0/07_authproc/resources/var/www/html/mapa_sso.php):
+* [resources/var/www/html/mapa_sso.php](../../../blob/main/07_authproc/resources/var/www/html/mapa_sso.php):
 ```diff
 @@ -42,17 +42,17 @@
  if ($as->isAuthenticated()) {
