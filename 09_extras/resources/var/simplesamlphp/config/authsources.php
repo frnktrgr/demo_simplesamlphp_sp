@@ -22,13 +22,11 @@ $config = [
     ],
 
 
-    // An authentication source which can authenticate against both SAML 2.0
-    // and Shibboleth 1.3 IdPs.
+    // An authentication source which can authenticate against SAML 2.0 IdPs.
     'default-sp' => [
         'saml:SP',
 
         // The entity ID of this SP.
-        // Can be NULL/unset, in which case an entity ID is generated based on the metadata URL.
         'entityID' => 'https://sso-dev.fau.de/devssp/module.php/saml/sp/metadata.php/default-sp',
 
         'privatekey' => 'sso-dev.fau.de.pem',
@@ -44,7 +42,15 @@ $config = [
 
         // The URL to the discovery service.
         // Can be NULL/unset, in which case a builtin discovery service will be used.
-        'discoURL' => 'https://wayf.aai.dfn.de/DFN-AAI-Test/wayf',
+        'discoURL' => null,
+
+        /*
+         * If SP behind the SimpleSAMLphp in IdP/SP proxy mode requests
+         * AuthnContextClassRef, decide whether the AuthnContextClassRef will be
+         * processed by the IdP/SP proxy or if it will be passed to the original
+         * IdP in front of the IdP/SP proxy.
+         */
+        'proxymode.passAuthnContextClassRef' => false,
 
         /*
          * The attributes parameter must contain an array of desired attributes by the SP.
