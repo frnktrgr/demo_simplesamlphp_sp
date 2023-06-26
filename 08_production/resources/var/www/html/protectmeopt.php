@@ -1,5 +1,5 @@
 <?php
-require_once('../../simplesamlphp/lib/_autoload.php');
+require_once('../../simplesamlphp/src/_autoload.php');
 $as = new \SimpleSAML\Auth\Simple('default-sp');
 $attributes = $as->getAttributes();
 ?>
@@ -88,7 +88,7 @@ $attributes = $as->getAttributes();
             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <span class="font-monospace">index.php</span>
-                    <pre><code class="language-php">require_once('../../simplesamlphp/lib/_autoload.php');
+                    <pre><code class="language-php">require_once('../../simplesamlphp/src/_autoload.php');
 $as = new \SimpleSAML\Auth\Simple('default-sp');
 $attributes = $as->getAttributes();</code></pre>
                     <span class="font-monospace">logout.php</span>

@@ -6,7 +6,7 @@ $config = [
             'cron'		=> ['hourly'],
             'sources'	=> [
                 [
-                    'whitelist'     => [
+                    'whitelist' => [
                         'https://testidp.aai.dfn.de/idp/shibboleth',
                         'https://testidp2-dev.aai.dfn.de/idp/shibboleth',
                         'https://testidp3-dev.aai.dfn.de/idp/shibboleth',
@@ -16,14 +16,14 @@ $config = [
                     //'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
                     'template' => [
                         'tags' => ['dfntest'],
-                        'authproc'  => [
-                            50 => array(
+                        'authproc' => [
+                            50 => [
                                 'class' => 'core:GenerateGroups',
                                 'eduPersonScopedAffiliation',
-                            ),
+                            ],
                             90 => [
                                 'class' => 'saml:FilterScopes',
-                            ],
+                            ]
                         ],
                     ],
                 ],
@@ -37,7 +37,7 @@ $config = [
 			'cron'		=> ['hourly'],
 			'sources'	=> [
                 [
-                    'whitelist'     => [
+                    'whitelist' => [
                         'https://www.sso.uni-erlangen.de/simplesaml/saml2/idp/metadata.php',
                     ],
 					'src' => 'http://www.aai.dfn.de/fileadmin/metadata/dfn-aai-basic-metadata.xml',
@@ -45,14 +45,14 @@ $config = [
 					//'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
 					'template' => [
 						'tags'	    => ['dfn'],
-                        'authproc'  => [
-                            50 => array(
+                        'authproc' => [
+                            50 => [
                                 'class' => 'core:GenerateGroups',
                                 'eduPersonScopedAffiliation',
-                            ),
+                            ],
                             90 => [
                                 'class' => 'saml:FilterScopes',
-                            ],
+                            ]
                         ],
 					],
 				],

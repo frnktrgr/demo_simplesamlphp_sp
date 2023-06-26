@@ -1,7 +1,7 @@
 # Vorbereitungen für den produktiven Betrieb
 
 ## Links
-* [SimpleSAMLphp Documentation > Maintenance and configuration > 7 Getting ready for production](https://simplesamlphp.org/docs/stable/simplesamlphp-maintenance#section_7)
+* [SimpleSAMLphp Documentation > Maintenance and configuration > Getting ready for production](https://simplesamlphp.org/docs/stable/simplesamlphp-maintenance.html#getting-ready-for-production)
 
 ## Teilschritte
 * `config/config.php`
@@ -11,25 +11,18 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Änderungen
-* [Dockerfile](../../../blob/main/08_production/Dockerfile):
+* [resources/var/simplesamlphp/config/authsources.php](../../../blob/simplesamlphp-2.0/08_production/resources/var/simplesamlphp/config/authsources.php):
 ```diff
-@@ -82,7 +82,11 @@
-     && a2dissite 000-default \
-     && a2ensite sso-dev.fau.de sso-dev.fau.de-ssl \
-     && rm /var/www/html/index.html \
--    && chown www-data /var/simplesamlphp/metadata
-+    && chown www-data /var/simplesamlphp/metadata \
-+    && rm -fR /var/simplesamlphp/metadata/adfs*.php \
-+    && rm -fR /var/simplesamlphp/metadata/saml20-sp-remote.php \
-+    && rm -fR /var/simplesamlphp/metadata/shib13*.php \
-+    && rm -fR /var/simplesamlphp/metadata/wsfed*.php
+@@ -42,7 +42,7 @@
  
- WORKDIR /var/simplesamlphp
+         // The URL to the discovery service.
+         // Can be NULL/unset, in which case a builtin discovery service will be used.
+-        'discoURL' => 'https://wayf.aai.dfn.de/DFN-AAI-Test/wayf',
++        'discoURL' => null,
  
-```
-* [resources/var/simplesamlphp/config/authsources.php](../../../blob/main/08_production/resources/var/simplesamlphp/config/authsources.php):
-```diff
-@@ -91,272 +91,4 @@
+         /*
+          * If SP behind the SimpleSAMLphp in IdP/SP proxy mode requests
+@@ -97,279 +97,4 @@
              ],
          ],
      ],
@@ -134,16 +127,16 @@
 -    */
 -
 -    /*
--    // LinkedIn OAuth Authentication API.
+-    // Twitter OAuth Authentication API.
 -    // Register your application to get an API key here:
--    //  https://www.linkedin.com/secure/developer
--    // Attributes definition:
--    //  https://developer.linkedin.com/docs/fields
--    'linkedin' => [
--        'authlinkedin:LinkedIn',
+-    //  http://twitter.com/oauth_clients
+-    'twitter' => [
+-        'authtwitter:Twitter',
 -        'key' => 'xxxxxxxxxxxxxxxx',
 -        'secret' => 'xxxxxxxxxxxxxxxx',
--        'attributes' => 'id,first-name,last-name,headline,summary,specialties,picture-url,email-address',
+-        // Forces the user to enter their credentials to ensure the correct users account is authorized.
+-        // Details: https://dev.twitter.com/docs/api/1/get/oauth/authenticate
+-        'force_login' => false,
 -    ],
 -    */
 -
@@ -161,107 +154,117 @@
 -    /*
 -    // Example of a LDAP authentication source.
 -    'example-ldap' => [
--        'ldap:LDAP',
+-        'ldap:Ldap',
 -
--        // Give the user an option to save their username for future login attempts
--        // And when enabled, what should the default be, to save the username or not
--        //'remember.username.enabled' => false,
--        //'remember.username.checked' => false,
--
--        // The hostname of the LDAP server.
--        'hostname' => 'ldap.example.org',
+-        // The connection string for the LDAP-server.
+-        // You can add multiple by separating them with a space.
+-        'connection_string' => 'ldap.example.org',
 -
 -        // Whether SSL/TLS should be used when contacting the LDAP server.
--        'enable_tls' => true,
+-        // Possible values are 'ssl', 'tls' or 'none'
+-        'encryption' => 'ssl',
 -
--        // Whether debug output from the LDAP library should be enabled.
--        // Default is FALSE.
--        'debug' => false,
+-        // The LDAP version to use when interfacing the LDAP-server.
+-        // Defaults to 3
+-        'version' => 3,
 -
--        // The timeout for accessing the LDAP server, in seconds.
--        // The default is 0, which means no timeout.
--        'timeout' => 0,
+-        // Set to TRUE to enable LDAP debug level. Passed to the LDAP connector class.
+-        //
+-        // Default: FALSE
+-        // Required: No
+-        'ldap.debug' => false,
 -
--        // The port used when accessing the LDAP server.
--        // The default is 389.
--        'port' => 389,
+-        // The LDAP-options to pass when setting up a connection
+-        // See [Symfony documentation][1]
+-        'options' => [
 -
--        // Set whether to follow referrals. AD Controllers may require FALSE to function.
--        'referrals' => true,
+-            // Set whether to follow referrals.
+-            // AD Controllers may require 0x00 to function.
+-            // Possible values are 0x00 (NEVER), 0x01 (SEARCHING),
+-            //   0x02 (FINDING) or 0x03 (ALWAYS).
+-            'referrals' => 0x00,
+-
+-            'network_timeout' => 3,
+-        ],
+-
+-        // The connector to use.
+-        // Defaults to '\SimpleSAML\Module\ldap\Connector\Ldap', but can be set
+-        // to '\SimpleSAML\Module\ldap\Connector\ActiveDirectory' when
+-        // authenticating against Microsoft Active Directory. This will
+-        // provide you with more specific error messages.
+-        'connector' => '\SimpleSAML\Module\ldap\Connector\Ldap',
 -
 -        // Which attributes should be retrieved from the LDAP server.
 -        // This can be an array of attribute names, or NULL, in which case
 -        // all attributes are fetched.
 -        'attributes' => null,
 -
--        // The pattern which should be used to create the users DN given the username.
--        // %username% in this pattern will be replaced with the users username.
+-         // Which attributes should be base64 encoded after retrieval from
+-         // the LDAP server.
+-        'attributes.binary' => [
+-            'jpegPhoto',
+-            'objectGUID',
+-            'objectSid',
+-            'mS-DS-ConsistencyGuid'
+-        ],
+-
+-        // The pattern which should be used to create the user's DN given
+-        // the username. %username% in this pattern will be replaced with
+-        // the user's username.
 -        //
 -        // This option is not used if the search.enable option is set to TRUE.
 -        'dnpattern' => 'uid=%username%,ou=people,dc=example,dc=org',
 -
--        // As an alternative to specifying a pattern for the users DN, it is possible to
--        // search for the username in a set of attributes. This is enabled by this option.
+-        // As an alternative to specifying a pattern for the users DN, it is
+-        // possible to search for the username in a set of attributes. This is
+-        // enabled by this option.
 -        'search.enable' => false,
 -
--        // The DN which will be used as a base for the search.
--        // This can be a single string, in which case only that DN is searched, or an
--        // array of strings, in which case they will be searched in the order given.
--        'search.base' => 'ou=people,dc=example,dc=org',
+-        // An array on DNs which will be used as a base for the search. In
+-        // case of multiple strings, they will be searched in the order given.
+-        'search.base' => [
+-            'ou=people,dc=example,dc=org',
+-        ],
+-
+-        // The scope of the search. Valid values are 'sub' and 'one' and
+-        // 'base', first one being the default if no value is set.
+-        'search.scope' => 'sub',
 -
 -        // The attribute(s) the username should match against.
 -        //
--        // This is an array with one or more attribute names. Any of the attributes in
--        // the array may match the value the username.
+-        // This is an array with one or more attribute names. Any of the
+-        // attributes in the array may match the value the username.
 -        'search.attributes' => ['uid', 'mail'],
 -
--        // Additional LDAP filters appended to the search attributes
--        //'search.filter' => '(objectclass=inetorgperson)',
+-        // Additional filters that must match for the entire LDAP search to
+-        // be true.
+-        //
+-        // This should be a single string conforming to [RFC 1960][2]
+-        // and [RFC 2544][3]. The string is appended to the search attributes
+-        'search.filter' => '(&(objectClass=Person)(|(sn=Doe)(cn=John *)))',
 -
--        // The username & password the SimpleSAMLphp should bind to before searching. If
--        // this is left as NULL, no bind will be performed before searching.
+-        // The username & password where SimpleSAMLphp should bind to before
+-        // searching. If this is left NULL, no bind will be performed before
+-        // searching.
 -        'search.username' => null,
 -        'search.password' => null,
--
--        // If the directory uses privilege separation,
--        // the authenticated user may not be able to retrieve
--        // all required attribures, a privileged entity is required
--        // to get them. This is enabled with this option.
--        'priv.read' => false,
--
--        // The DN & password the SimpleSAMLphp should bind to before
--        // retrieving attributes. These options are required if
--        // 'priv.read' is set to TRUE.
--        'priv.username' => null,
--        'priv.password' => null,
--
 -    ],
 -    */
 -
 -    /*
 -    // Example of an LDAPMulti authentication source.
 -    'example-ldapmulti' => [
--        'ldap:LDAPMulti',
+-        'ldap:LdapMulti',
 -
--        // Give the user an option to save their username for future login attempts
--        // And when enabled, what should the default be, to save the username or not
--        //'remember.username.enabled' => false,
--        //'remember.username.checked' => false,
--
--        // Give the user an option to save their organization choice for future login
--        // attempts. And when enabled, what should the default be, checked or not.
--        //'remember.organization.enabled' => false,
--        //'remember.organization.checked' => false,
--
--        // The way the organization as part of the username should be handled.
--        // Three possible values:
--        // - 'none':   No handling of the organization. Allows '@' to be part
--        //             of the username.
--        // - 'allow':  Will allow users to type 'username@organization'.
--        // - 'force':  Force users to type 'username@organization'. The dropdown
--        //             list will be hidden.
--        //
--        // The default is 'none'.
+-         // The way the organization as part of the username should be handled.
+-         // Three possible values:
+-         // - 'none':   No handling of the organization. Allows '@' to be part
+-         //             of the username.
+-         // - 'allow':  Will allow users to type 'username@organization'.
+-         // - 'force':  Force users to type 'username@organization'. The dropdown
+-         //             list will be hidden.
+-         //
+-         // The default is 'none'.
 -        'username_organization_method' => 'none',
 -
 -        // Whether the organization should be included as part of the username
@@ -280,36 +283,90 @@
 -        //
 -        // The value of each element is an array in the same format as an LDAP
 -        // authentication source.
--        'employees' => [
--            // A short name/description for this group. Will be shown in a dropdown list
--            // when the user logs on.
--            //
--            // This option can be a string or an array with language => text mappings.
--            'description' => 'Employees',
+-        'mapping' => [
+-            'employees' => [
+-                // A short name/description for this group. Will be shown in a
+-                // dropdown list when the user logs on.
+-                //
+-                // This option can be a string or an array with
+-                // language => text mappings.
+-                'description' => 'Employees',
+-                'authsource' => 'example-ldap',
+-            ],
 -
--            // The rest of the options are the same as those available for
--            // the LDAP authentication source.
--            'hostname' => 'ldap.employees.example.org',
--            'dnpattern' => 'uid=%username%,ou=employees,dc=example,dc=org',
--        ],
--
--        'students' => [
--            'description' => 'Students',
--
--            'hostname' => 'ldap.students.example.org',
--            'dnpattern' => 'uid=%username%,ou=students,dc=example,dc=org',
+-            'students' => [
+-                'description' => 'Students',
+-                'authsource' => 'example-ldap-2',
+-            ],
 -        ],
 -    ],
 -    */
  ];
 ```
-* [resources/var/simplesamlphp/config/config-metarefresh.php](../../../blob/main/08_production/resources/var/simplesamlphp/config/config-metarefresh.php):
+* [resources/var/simplesamlphp/config/config.php](../../../blob/simplesamlphp-2.0/08_production/resources/var/simplesamlphp/config/config.php):
+```diff
+@@ -304,7 +304,7 @@
+      * empty array.
+      */
+     'debug' => [
+-        'saml' => true,
++        'saml' => false,
+         'backtraces' => true,
+         'validatexml' => false,
+     ],
+@@ -316,7 +316,7 @@
+      * When 'errorreporting' is enabled, a form will be presented for the user to report
+      * the error to 'technicalcontact_email'.
+      */
+-    'showerrors' => true,
++    'showerrors' => false,
+     'errorreporting' => true,
+ 
+     /*
+@@ -348,7 +348,7 @@
+      * must exist and be writable for SimpleSAMLphp. If set to something else, set
+      * loggingdir above to 'null'.
+      */
+-    'logging.level' => SimpleSAML\Logger::DEBUG,
++    'logging.level' => SimpleSAML\Logger::NOTICE,
+     'logging.handler' => 'syslog',
+ 
+     /*
+@@ -802,11 +802,12 @@
+     /*
+      * Languages available, RTL languages, and what language is the default.
+      */
+-    'language.available' => [
+-        'en', 'no', 'nn', 'se', 'da', 'de', 'sv', 'fi', 'es', 'ca', 'fr', 'it', 'nl', 'lb',
+-        'cs', 'sk', 'sl', 'lt', 'hr', 'hu', 'pl', 'pt', 'pt-br', 'tr', 'ja', 'zh', 'zh-tw',
+-        'ru', 'et', 'he', 'id', 'sr', 'lv', 'ro', 'eu', 'el', 'af', 'zu', 'xh', 'st',
+-    ],
++//    'language.available' => [
++//        'en', 'no', 'nn', 'se', 'da', 'de', 'sv', 'fi', 'es', 'ca', 'fr', 'it', 'nl', 'lb',
++//        'cs', 'sk', 'sl', 'lt', 'hr', 'hu', 'pl', 'pt', 'pt-br', 'tr', 'ja', 'zh', 'zh-tw',
++//        'ru', 'et', 'he', 'id', 'sr', 'lv', 'ro', 'eu', 'el', 'af', 'zu', 'xh', 'st',
++//    ],
++    'language.available' => ['en', 'de'],
+     'language.rtl' => ['ar', 'dv', 'fa', 'ur', 'he'],
+     'language.default' => 'de',
+ 
+@@ -952,7 +953,7 @@
+      *
+      * Options: [links,dropdown]
+      */
+-    'idpdisco.layout' => 'dropdown',
++    'idpdisco.layout' => 'links',
+ 
+ 
+ 
+```
+* [resources/var/simplesamlphp/config/module_metarefresh.php](../../../blob/simplesamlphp-2.0/08_production/resources/var/simplesamlphp/config/module_metarefresh.php):
 ```diff
 @@ -6,6 +6,11 @@
              'cron'		=> ['hourly'],
              'sources'	=> [
                  [
-+                    'whitelist'     => [
++                    'whitelist' => [
 +                        'https://testidp.aai.dfn.de/idp/shibboleth',
 +                        'https://testidp2-dev.aai.dfn.de/idp/shibboleth',
 +                        'https://testidp3-dev.aai.dfn.de/idp/shibboleth',
@@ -329,7 +386,7 @@
  			'cron'		=> ['hourly'],
  			'sources'	=> [
                  [
-+                    'whitelist'     => [
++                    'whitelist' => [
 +                        'https://www.sso.uni-erlangen.de/simplesaml/saml2/idp/metadata.php',
 +                    ],
  					'src' => 'http://www.aai.dfn.de/fileadmin/metadata/dfn-aai-basic-metadata.xml',
@@ -343,72 +400,6 @@
  			'expireAfter' 	=> 60*60*24*4, // Maximum 4 days cache time.
  			'outputDir' 	=> 'metadata/dfn/',
  			'outputFormat'  => 'flatfile',
-```
-* [resources/var/simplesamlphp/config/config.php](../../../blob/main/08_production/resources/var/simplesamlphp/config/config.php):
-```diff
-@@ -144,7 +144,7 @@
-      * Set this options to true if you want to require administrator password to access the web interface
-      * or the metadata pages, respectively.
-      */
--    'admin.protectindexpage' => false,
-+    'admin.protectindexpage' => true,
-     'admin.protectmetadata' => false,
- 
-     /*
-@@ -249,7 +249,7 @@
-      * empty array.
-      */
-     'debug' => [
--        'saml' => true,
-+        'saml' => false,
-         'backtraces' => true,
-         'validatexml' => false,
-     ],
-@@ -261,7 +261,7 @@
-      * When 'errorreporting' is enabled, a form will be presented for the user to report
-      * the error to 'technicalcontact_email'.
-      */
--    'showerrors' => true,
-+    'showerrors' => false,
-     'errorreporting' => true,
- 
-     /*
-@@ -291,7 +291,7 @@
-      * Options: [syslog,file,errorlog,stderr]
-      *
-      */
--    'logging.level' => SimpleSAML\Logger::DEBUG,
-+    'logging.level' => SimpleSAML\Logger::NOTICE,
-     'logging.handler' => 'syslog',
- 
-     /*
-@@ -785,11 +785,12 @@
-     /*
-      * Languages available, RTL languages, and what language is the default.
-      */
--    'language.available' => [
--        'en', 'no', 'nn', 'se', 'da', 'de', 'sv', 'fi', 'es', 'ca', 'fr', 'it', 'nl', 'lb',
--        'cs', 'sl', 'lt', 'hr', 'hu', 'pl', 'pt', 'pt-br', 'tr', 'ja', 'zh', 'zh-tw', 'ru',
--        'et', 'he', 'id', 'sr', 'lv', 'ro', 'eu', 'el', 'af', 'zu', 'xh', 'st',
--    ],
-+//    'language.available' => [
-+//        'en', 'no', 'nn', 'se', 'da', 'de', 'sv', 'fi', 'es', 'ca', 'fr', 'it', 'nl', 'lb',
-+//        'cs', 'sl', 'lt', 'hr', 'hu', 'pl', 'pt', 'pt-br', 'tr', 'ja', 'zh', 'zh-tw', 'ru',
-+//        'et', 'he', 'id', 'sr', 'lv', 'ro', 'eu', 'el', 'af', 'zu', 'xh', 'st',
-+//    ],
-+    'language.available' => ['en', 'de'],
-     'language.rtl' => ['ar', 'dv', 'fa', 'ur', 'he'],
-     'language.default' => 'de',
- 
-@@ -957,7 +958,7 @@
-      *
-      * Options: [links,dropdown]
-      */
--    'idpdisco.layout' => 'dropdown',
-+    'idpdisco.layout' => 'links',
- 
- 
- 
 ```
 
 [//]: # (AUTOGENERATE END)

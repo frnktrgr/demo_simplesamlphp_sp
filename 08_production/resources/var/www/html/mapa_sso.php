@@ -6,7 +6,7 @@ function isSsoAuthenticated() {
     return isset($_SESSION["ssp"]) && $_SESSION["ssp"] === true;
 }
 
-require_once('../../simplesamlphp/lib/_autoload.php');
+require_once('../../simplesamlphp/src/_autoload.php');
 
 $as = new \SimpleSAML\Auth\Simple('default-sp');
 
@@ -37,7 +37,7 @@ if ($_GET["ssoLogout"]) {
     }
 }
 $attributes = $as->getAttributes();
-SimpleSAML_Session::getSessionFromRequest()->cleanup();
+\SimpleSAML\Session::getSessionFromRequest()->cleanup();
 
 if ($as->isAuthenticated()) {
     if ($_SESSION['ssp']) {
