@@ -6,7 +6,7 @@ Software [SimpleSAMLphp](https://simplesamlphp.org/) als Service Provider in der
 
 ## Aktualisierung auf SimpleSAMLphp 2.0
 Die Original-Schulungsunterlagen beziehen sich auf SimpleSAMLphp 1.19 und sind weiterhin im Branch
-[simplesamlphp-1.19](https://github.com/frnktrgr/demo_simplesamlphp_sp/tree/simplesamlphp-2.0) verfügbar.
+[simplesamlphp-1.19](https://github.com/frnktrgr/demo_simplesamlphp_sp/tree/simplesamlphp-1.19) verfügbar.
 
 ## Schulung
 
