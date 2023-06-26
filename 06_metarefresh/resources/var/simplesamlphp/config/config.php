@@ -545,6 +545,7 @@ $config = [
         'admin' => true,
         'saml' => true,
         'cron' => true,
+        'metarefresh' => true,
     ],
 
 
@@ -1143,7 +1144,6 @@ $config = [
         ['type' => 'flatfile'],
         ['type' => 'flatfile', 'directory' => 'metadata/dfntest'],
         ['type' => 'flatfile', 'directory' => 'metadata/dfn'],
-        ['type' => 'flatfile', 'directory' => 'metadata/edugain'],
     ],
 
     /*

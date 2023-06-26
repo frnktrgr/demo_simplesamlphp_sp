@@ -42,7 +42,7 @@ $config = [
 
         // The URL to the discovery service.
         // Can be NULL/unset, in which case a builtin discovery service will be used.
-        'discoURL' => null,
+        'discoURL' => 'https://wayf.aai.dfn.de/DFN-AAI-Test/wayf',
 
         /*
          * If SP behind the SimpleSAMLphp in IdP/SP proxy mode requests
