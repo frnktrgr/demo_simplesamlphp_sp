@@ -25,7 +25,6 @@ sed "s/^memory_limit = .*$/memory_limit = $PHPMEMORYLIMIT/" -i /etc/php/${BBX_PH
 echogood "Setting PHP max execution time to ${PHPMAXEXECUTIONTIME}"
 sed "s/^max_execution_time = .*$/max_execution_time = $PHPMAXEXECUTIONTIME/" -i /etc/php/${BBX_PHP_VERSION}/apache2/php.ini
 
-
 echogood "Starting Supervisor"
 exec /usr/bin/supervisord > /dev/null 2>&1 &
 child=$!

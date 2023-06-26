@@ -1,7 +1,7 @@
 # Grundlagen der Authentication Processing Filters
 
 ## Links
-* [SimpleSAMLphp Documentation > Authentication Processing Filters](https://simplesamlphp.org/docs/stable/simplesamlphp-authproc)
+* [SimpleSAMLphp Documentation > Authentication Processing Filters](https://simplesamlphp.org/docs/stable/simplesamlphp-authproc.html)
 
 ## Teilschritte
 * `config/config.php`
@@ -11,45 +11,10 @@
 [//]: # (AUTOGENERATE START)
 ## Anpassungen
 ### Änderungen
-* [resources/var/simplesamlphp/config/config-metarefresh.php](../../../blob/main/07_authproc/resources/var/simplesamlphp/config/config-metarefresh.php):
+* [resources/var/simplesamlphp/config/config.php](../../../blob/simplesamlphp-2.0/07_authproc/resources/var/simplesamlphp/config/config.php):
 ```diff
-@@ -11,6 +11,15 @@
-                     //'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
-                     'template' => [
-                         'tags' => ['dfntest'],
-+                        'authproc'  => [
-+                            50 => array(
-+                                'class' => 'core:GenerateGroups',
-+                                'eduPersonScopedAffiliation',
-+                            ),
-+                            90 => [
-+                                'class' => 'saml:FilterScopes',
-+                            ],
-+                        ],
-                     ],
-                 ],
-             ],
-@@ -27,6 +36,15 @@
- 					//'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
- 					'template' => [
- 						'tags'	    => ['dfn'],
-+                        'authproc'  => [
-+                            50 => array(
-+                                'class' => 'core:GenerateGroups',
-+                                'eduPersonScopedAffiliation',
-+                            ),
-+                            90 => [
-+                                'class' => 'saml:FilterScopes',
-+                            ],
-+                        ],
- 					],
- 				],
- 			],
-```
-* [resources/var/simplesamlphp/config/config.php](../../../blob/main/07_authproc/resources/var/simplesamlphp/config/config.php):
-```diff
-@@ -1026,6 +1026,9 @@
-      * Both Shibboleth and SAML 2.0
+@@ -1019,6 +1019,9 @@
+      * Authentication processing filters that will be executed for all SPs
       */
      'authproc.sp' => [
 +        10 => [
@@ -59,7 +24,42 @@
          10 => [
              'class' => 'core:AttributeMap', 'removeurnprefix'
 ```
-* [resources/var/www/html/mapa_sso.php](../../../blob/main/07_authproc/resources/var/www/html/mapa_sso.php):
+* [resources/var/simplesamlphp/config/module_metarefresh.php](../../../blob/simplesamlphp-2.0/07_authproc/resources/var/simplesamlphp/config/module_metarefresh.php):
+```diff
+@@ -11,6 +11,15 @@
+                     //'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
+                     'template' => [
+                         'tags' => ['dfntest'],
++                        'authproc' => [
++                            50 => [
++                                'class' => 'core:GenerateGroups',
++                                'eduPersonScopedAffiliation',
++                            ],
++                            90 => [
++                                'class' => 'saml:FilterScopes',
++                            ]
++                        ],
+                     ],
+                 ],
+             ],
+@@ -27,6 +36,15 @@
+ 					//'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
+ 					'template' => [
+ 						'tags'	    => ['dfn'],
++                        'authproc' => [
++                            50 => [
++                                'class' => 'core:GenerateGroups',
++                                'eduPersonScopedAffiliation',
++                            ],
++                            90 => [
++                                'class' => 'saml:FilterScopes',
++                            ]
++                        ],
+ 					],
+ 				],
+ 			],
+```
+* [resources/var/www/html/mapa_sso.php](../../../blob/simplesamlphp-2.0/07_authproc/resources/var/www/html/mapa_sso.php):
 ```diff
 @@ -42,17 +42,17 @@
  if ($as->isAuthenticated()) {

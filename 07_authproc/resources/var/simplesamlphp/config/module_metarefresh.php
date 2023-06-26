@@ -11,14 +11,14 @@ $config = [
                     //'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
                     'template' => [
                         'tags' => ['dfntest'],
-                        'authproc'  => [
-                            50 => array(
+                        'authproc' => [
+                            50 => [
                                 'class' => 'core:GenerateGroups',
                                 'eduPersonScopedAffiliation',
-                            ),
+                            ],
                             90 => [
                                 'class' => 'saml:FilterScopes',
-                            ],
+                            ]
                         ],
                     ],
                 ],
@@ -36,14 +36,14 @@ $config = [
 					//'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
 					'template' => [
 						'tags'	    => ['dfn'],
-                        'authproc'  => [
-                            50 => array(
+                        'authproc' => [
+                            50 => [
                                 'class' => 'core:GenerateGroups',
                                 'eduPersonScopedAffiliation',
-                            ),
+                            ],
                             90 => [
                                 'class' => 'saml:FilterScopes',
-                            ],
+                            ]
                         ],
 					],
 				],
