@@ -1,4 +1,4 @@
-ARG BBX_APACHE_VERSION=2.4.52*
+ARG BBX_APACHE_VERSION=2.4.62*
 ARG BBX_PHP_VERSION=8.1
 
 ARG BBX_SSP_VERSION=2.0.4
@@ -25,7 +25,7 @@ ENV BBX_PHP_VERSION=$BBX_PHP_VERSION
 
 # set local mirror - can be skipped, of course
 RUN set -ex \
-    && sed "s/archive\.ubuntu\.com/ftp.uni-erlangen.de\/pub\/mirrors/" -i /etc/apt/sources.list
+    && sed "s/archive\.ubuntu\.com/ftp.uni-erlangen.de\/pub\/mirrors/" -i /etc/apt/sources.list.d/ubuntu.sources
 
 RUN set -ex \
     && export DEBIAN_FRONTEND=noninteractive \
@@ -42,6 +42,7 @@ RUN set -ex \
         vim \
         wget \
     && LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php \
+    && LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/apache2 \
     && apt-get -qq update \
     && apt-get -qqy upgrade
 

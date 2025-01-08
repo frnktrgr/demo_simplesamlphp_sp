@@ -4,7 +4,10 @@ Dieses Repository entstand bei der Durchführung einer Schulung über Service Pr
 [DFN-AAI](https://www.aai.dfn.de/) im Februar 2021. Ziel war das Kennenlernen der
 Software [SimpleSAMLphp](https://simplesamlphp.org/) als Service Provider in der DFN-AAI-Föderation.
 
-## Aktualisierung auf SimpleSAMLphp 2.0
+## Aktualisierung auf SimpleSAMLphp 2.3.x
+*in Arbeit*
+
+## Aktualisierung auf SimpleSAMLphp 2.0.x
 Die Original-Schulungsunterlagen beziehen sich auf SimpleSAMLphp 1.19 und sind weiterhin im Branch
 [simplesamlphp-1.19](https://github.com/frnktrgr/demo_simplesamlphp_sp/tree/simplesamlphp-1.19) verfügbar.
 
