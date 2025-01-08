@@ -1,19 +1,21 @@
 ARG BBX_APACHE_VERSION=2.4.62*
-ARG BBX_PHP_VERSION=8.1
+ARG BBX_PHP_VERSION=8.4
 
-ARG BBX_SSP_VERSION=2.0.4
-ARG BBX_SSP_CHECKSUM=10f50ae5165b044cd4c78de3c118a025ecf47586e428f16b340933f9d44ab52c
+ARG BBX_SSP_VERSION=2.3.5
+ARG BBX_SSP_FLAVOR=-full
+ARG BBX_SSP_CHECKSUM=97bc3b8220eb628fd5493e14187d756247462849ebf323ccf094b0cd2b505665
 
 ARG BBX_COMPOSER_VERSION=2.5.8
 ARG BBX_COMPOSER_CHECKSUM=f07934fad44f9048c0dc875a506cca31cc2794d6aebfc1867f3b1fbf48dce2c5
 
-FROM ubuntu:22.04 AS build
+FROM ubuntu:24.04 AS build
 MAINTAINER Frank Tröger <frank.troeger@fau.de>
 
 ARG BBX_APACHE_VERSION
 ARG BBX_PHP_VERSION
 
 ARG BBX_SSP_VERSION
+ARG BBX_SSP_FLAVOR
 ARG BBX_SSP_CHECKSUM
 
 ARG BBX_COMPOSER_VERSION
@@ -82,11 +84,11 @@ RUN set -ex \
 # install SimpleSAMLphp
 WORKDIR /var
 RUN set -ex \
-    && wget https://github.com/simplesamlphp/simplesamlphp/releases/download/v${BBX_SSP_VERSION}/simplesamlphp-${BBX_SSP_VERSION}.tar.gz \
-    && echo "${BBX_SSP_CHECKSUM}  simplesamlphp-${BBX_SSP_VERSION}.tar.gz" | sha256sum -c \
-    && tar xzf simplesamlphp-${BBX_SSP_VERSION}.tar.gz \
+    && wget https://github.com/simplesamlphp/simplesamlphp/releases/download/v${BBX_SSP_VERSION}/simplesamlphp-${BBX_SSP_VERSION}${BBX_SSP_FLAVOR}.tar.gz \
+    && echo "${BBX_SSP_CHECKSUM}  simplesamlphp-${BBX_SSP_VERSION}${BBX_SSP_FLAVOR}.tar.gz" | sha256sum -c \
+    && tar xzf simplesamlphp-${BBX_SSP_VERSION}${BBX_SSP_FLAVOR}.tar.gz \
     && mv simplesamlphp-${BBX_SSP_VERSION} simplesamlphp \
-    && rm simplesamlphp-${BBX_SSP_VERSION}.tar.gz
+    && rm simplesamlphp-${BBX_SSP_VERSION}${BBX_SSP_FLAVOR}.tar.gz
 
 WORKDIR /var/simplesamlphp
 RUN set -ex \
