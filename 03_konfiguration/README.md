@@ -19,11 +19,26 @@
 ## Anpassungen
 ### Hinzugefügt
 * [resources/etc/logrotate.d](../../../blob/main/03_konfiguration/resources/etc/logrotate.d)
-* [resources/etc/rsyslog.d](../../../blob/main/03_konfiguration/resources/etc/rsyslog.d)
 * [resources/var/simplesamlphp/config/authsources.php](../../../blob/main/03_konfiguration/resources/var/simplesamlphp/config/authsources.php)
 * [resources/var/simplesamlphp/metadata](../../../blob/main/03_konfiguration/resources/var/simplesamlphp/metadata)
 
 ### Änderungen
+* [Dockerfile](../../../blob/main/03_konfiguration/Dockerfile):
+```diff
+@@ -86,6 +86,12 @@
+     && a2ensite sso-dev.fau.de sso-dev.fau.de-ssl \
+     && rm /var/www/html/index.html
+ 
++RUN set -ex \
++    && mkdir -p /var/cache/simplesamlphp \
++    && chown -R www-data /var/cache/simplesamlphp \
++    && mkdir -p /var/log/simplesamlphp \
++    && chown -R www-data /var/log/simplesamlphp
++
+ WORKDIR /var/simplesamlphp
+ 
+ EXPOSE 80/tcp 443/tcp
+```
 * [resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf](../../../blob/main/03_konfiguration/resources/etc/apache2/sites-available/sso-dev.fau.de-ssl.conf):
 ```diff
 @@ -38,7 +38,7 @@
@@ -47,7 +62,25 @@
  
      /*
       * The 'application' configuration array groups a set configuration options
-@@ -126,7 +126,7 @@
+@@ -58,7 +58,7 @@
+     /*
+      * The following settings are *filesystem paths* which define where
+      * SimpleSAMLphp can find or write the following things:
+-     * - 'cachedir': Where SimpleSAMLphp can write its cache. 
++     * - 'cachedir': Where SimpleSAMLphp can write its cache.
+      * - 'loggingdir': Where to write logs. MUST be set to NULL when using a logging
+      *                 handler other than `file`.
+      * - 'datadir': Storage of general data.
+@@ -68,7 +68,7 @@
+      * root directory.
+      */
+     'cachedir' => '/var/cache/simplesamlphp',
+-    //'loggingdir' => '/var/log/',
++    'loggingdir' => '/var/log/simplesamlphp/',
+     //'datadir' => '/var/data/',
+     //'tempdir' => '/tmp/simplesamlphp',
+ 
+@@ -128,7 +128,7 @@
       * also as the technical contact in generated metadata.
       */
      'technicalcontact_name' => 'Administrator',
@@ -56,7 +89,7 @@
  
      /*
       * (Optional) The method by which email is delivered.  Defaults to mail which utilizes the
-@@ -171,7 +171,7 @@
+@@ -173,7 +173,7 @@
       *
       * See this page for a list of valid timezones: http://php.net/manual/en/timezones.php
       */
@@ -65,7 +98,7 @@
  
  
  
-@@ -187,7 +187,7 @@
+@@ -189,7 +189,7 @@
       * A possible way to generate a random salt is by running the following command from a unix shell:
       * LC_ALL=C tr -c -d '0123456789abcdefghijklmnopqrstuvwxyz' </dev/urandom | dd bs=32 count=1 2>/dev/null;echo
       */
@@ -74,16 +107,16 @@
  
      /*
       * This password must be kept secret, and modified from the default value 123.
-@@ -195,7 +195,7 @@
-      * metadata listing and diagnostics pages.
-      * You can also put a hash here; run "bin/pwgen.php" to generate one.
+@@ -201,7 +201,7 @@
+      * ansible.builtin.password_hash(hashtype='blowfish', ident='2y', rounds=13)
+      * to generate this hashed value.
       */
 -    'auth.adminpassword' => '123',
-+    'auth.adminpassword' => 'admin1234',
++    'auth.adminpassword' => '$argon2id$v=19$m=64,t=4,p=1$NkF5QTREL1F0SVc4N053aw$mqz6SogI5i4O/4pBHBKXrV70RaKOKnvRcGfwfXlxF14',
  
      /*
       * Set this option to true if you want to require administrator password to access the metadata.
-@@ -304,7 +304,7 @@
+@@ -325,7 +325,7 @@
       * empty array.
       */
      'debug' => [
@@ -92,17 +125,19 @@
          'backtraces' => true,
          'validatexml' => false,
      ],
-@@ -348,7 +348,7 @@
+@@ -369,8 +369,8 @@
       * must exist and be writable for SimpleSAMLphp. If set to something else, set
       * loggingdir above to 'null'.
       */
 -    'logging.level' => SimpleSAML\Logger::NOTICE,
+-    'logging.handler' => 'syslog',
 +    'logging.level' => SimpleSAML\Logger::DEBUG,
-     'logging.handler' => 'syslog',
++    'logging.handler' => 'file',
  
      /*
-@@ -806,7 +806,7 @@
-         'ru', 'et', 'he', 'id', 'sr', 'lv', 'ro', 'eu', 'el', 'af', 'zu', 'xh', 'st',
+      * Specify the format of the logs. Its use varies depending on the log handler used (for instance, you cannot
+@@ -829,7 +829,7 @@
+         'ru', 'et', 'he', 'id', 'sr', 'lv', 'ro', 'eu', 'el', 'af', 'zu', 'xh', 'st'
      ],
      'language.rtl' => ['ar', 'dv', 'fa', 'ur', 'he'],
 -    'language.default' => 'en',

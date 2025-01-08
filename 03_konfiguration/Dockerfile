@@ -86,6 +86,12 @@ RUN set -ex \
     && a2ensite sso-dev.fau.de sso-dev.fau.de-ssl \
     && rm /var/www/html/index.html
 
+RUN set -ex \
+    && mkdir -p /var/cache/simplesamlphp \
+    && chown -R www-data /var/cache/simplesamlphp \
+    && mkdir -p /var/log/simplesamlphp \
+    && chown -R www-data /var/log/simplesamlphp
+
 WORKDIR /var/simplesamlphp
 
 EXPOSE 80/tcp 443/tcp

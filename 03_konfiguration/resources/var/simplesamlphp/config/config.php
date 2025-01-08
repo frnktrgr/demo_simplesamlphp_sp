@@ -9,7 +9,7 @@ $httpUtils = new \SimpleSAML\Utils\HTTP();
 $config = [
 
     /*******************************
-    | BASIC CONFIGURATION OPTIONS |
+     | BASIC CONFIGURATION OPTIONS |
      *******************************/
 
     /*
@@ -58,17 +58,19 @@ $config = [
     /*
      * The following settings are *filesystem paths* which define where
      * SimpleSAMLphp can find or write the following things:
+     * - 'cachedir': Where SimpleSAMLphp can write its cache.
      * - 'loggingdir': Where to write logs. MUST be set to NULL when using a logging
      *                 handler other than `file`.
      * - 'datadir': Storage of general data.
      * - 'tempdir': Saving temporary files. SimpleSAMLphp will attempt to create
-     *   this directory if it doesn't exist.
+     *   this directory if it doesn't exist. DEPRECATED - replaced by cachedir.
      * When specified as a relative path, this is relative to the SimpleSAMLphp
      * root directory.
      */
-    //'loggingdir' => '/var/log/',
+    'cachedir' => '/var/cache/simplesamlphp',
+    'loggingdir' => '/var/log/simplesamlphp/',
     //'datadir' => '/var/data/',
-    'tempdir' => '/tmp/simplesaml',
+    //'tempdir' => '/tmp/simplesamlphp',
 
     /*
      * Certificate and key material can be loaded from different possible
@@ -176,7 +178,7 @@ $config = [
 
 
     /**********************************
-    | SECURITY CONFIGURATION OPTIONS |
+     | SECURITY CONFIGURATION OPTIONS |
      **********************************/
 
     /*
@@ -194,8 +196,12 @@ $config = [
      * This password will give access to the installation page of SimpleSAMLphp with
      * metadata listing and diagnostics pages.
      * You can also put a hash here; run "bin/pwgen.php" to generate one.
+     *
+     * If you are using Ansible you might like to use
+     * ansible.builtin.password_hash(hashtype='blowfish', ident='2y', rounds=13)
+     * to generate this hashed value.
      */
-    'auth.adminpassword' => 'admin1234',
+    'auth.adminpassword' => '$argon2id$v=19$m=64,t=4,p=1$NkF5QTREL1F0SVc4N053aw$mqz6SogI5i4O/4pBHBKXrV70RaKOKnvRcGfwfXlxF14',
 
     /*
      * Set this option to true if you want to require administrator password to access the metadata.
@@ -259,7 +265,7 @@ $config = [
     /*
      * Set the allowed clock skew between encrypting/decrypting assertions
      *
-     * If you have an server that is constantly out of sync, this option
+     * If you have a server that is constantly out of sync, this option
      * allows you to adjust the allowed clock-skew.
      *
      * Allowed range: 180 - 300
@@ -267,9 +273,24 @@ $config = [
      */
     'assertion.allowed_clock_skew' => 180,
 
+    /*
+     * Set custom security headers. The defaults can be found in \SimpleSAML\Configuration::DEFAULT_SECURITY_HEADERS
+     *
+     * NOTE: When a header is already set on the response we will NOT overrule it and leave it untouched.
+     *
+     * Whenever you change any of these headers, make sure to validate your config by running your
+     * hostname through a security-test like https://en.internet.nl
+    'headers.security' => [
+        'Content-Security-Policy' => "default-src 'none'; frame-ancestors 'self'; object-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'",
+        'X-Frame-Options' => 'SAMEORIGIN',
+        'X-Content-Type-Options' => 'nosniff',
+        'Referrer-Policy' => 'origin-when-cross-origin',
+    ],
+     */
+
 
     /************************
-    | ERRORS AND DEBUGGING |
+     | ERRORS AND DEBUGGING |
      ************************/
 
     /*
@@ -329,7 +350,7 @@ $config = [
 
 
     /**************************
-    | LOGGING AND STATISTICS |
+     | LOGGING AND STATISTICS |
      **************************/
 
     /*
@@ -349,7 +370,7 @@ $config = [
      * loggingdir above to 'null'.
      */
     'logging.level' => SimpleSAML\Logger::DEBUG,
-    'logging.handler' => 'syslog',
+    'logging.handler' => 'file',
 
     /*
      * Specify the format of the logs. Its use varies depending on the log handler used (for instance, you cannot
@@ -427,14 +448,14 @@ $config = [
 
 
     /***********************
-    | PROXY CONFIGURATION |
+     | PROXY CONFIGURATION |
      ***********************/
 
     /*
      * Proxy to use for retrieving URLs.
      *
      * Example:
-     *   'proxy' => 'tcp://proxy.example.com:5100'
+     *   'proxy' => 'http://proxy.example.com:5100'
      */
     'proxy' => null,
 
@@ -448,7 +469,7 @@ $config = [
 
 
     /**************************
-    | DATABASE CONFIGURATION |
+     | DATABASE CONFIGURATION |
      **************************/
 
     /*
@@ -510,7 +531,7 @@ $config = [
 
 
     /*************
-    | PROTOCOLS |
+     | PROTOCOLS |
      *************/
 
     /*
@@ -524,7 +545,7 @@ $config = [
 
 
     /***********
-    | MODULES |
+     | MODULES |
      ***********/
 
     /*
@@ -548,7 +569,7 @@ $config = [
 
 
     /*************************
-    | SESSION CONFIGURATION |
+     | SESSION CONFIGURATION |
      *************************/
 
     /*
@@ -610,8 +631,10 @@ $config = [
      * Set this to TRUE if the user only accesses your service
      * through https. If the user can access the service through
      * both http and https, this must be set to FALSE.
+     *
+     * If unset, SimpleSAMLphp will try to automatically determine the right value
      */
-    'session.cookie.secure' => true,
+    //'session.cookie.secure' => true,
 
     /*
      * Set the SameSite attribute in the cookie.
@@ -672,7 +695,7 @@ $config = [
 
 
     /**************************
-    | MEMCACHE CONFIGURATION |
+     | MEMCACHE CONFIGURATION |
      **************************/
 
     /*
@@ -794,7 +817,7 @@ $config = [
 
 
     /*************************************
-    | LANGUAGE AND INTERNATIONALIZATION |
+     | LANGUAGE AND INTERNATIONALIZATION |
      *************************************/
 
     /*
@@ -802,8 +825,8 @@ $config = [
      */
     'language.available' => [
         'en', 'no', 'nn', 'se', 'da', 'de', 'sv', 'fi', 'es', 'ca', 'fr', 'it', 'nl', 'lb',
-        'cs', 'sk', 'sl', 'lt', 'hr', 'hu', 'pl', 'pt', 'pt-br', 'tr', 'ja', 'zh', 'zh-tw',
-        'ru', 'et', 'he', 'id', 'sr', 'lv', 'ro', 'eu', 'el', 'af', 'zu', 'xh', 'st',
+        'cs', 'sk', 'sl', 'lt', 'hr', 'hu', 'pl', 'pt', 'pt_BR', 'tr', 'ja', 'zh', 'zh_TW',
+        'ru', 'et', 'he', 'id', 'sr', 'lv', 'ro', 'eu', 'el', 'af', 'zu', 'xh', 'st'
     ],
     'language.rtl' => ['ar', 'dv', 'fa', 'ur', 'he'],
     'language.default' => 'de',
@@ -838,7 +861,7 @@ $config = [
      */
 
     /**************
-    | APPEARANCE |
+     | APPEARANCE |
      **************/
 
     /*
@@ -924,7 +947,7 @@ $config = [
     //'frontpage.redirect' => 'https://example.com/',
 
     /*********************
-    | DISCOVERY SERVICE |
+     | DISCOVERY SERVICE |
      *********************/
 
     /*
@@ -955,7 +978,7 @@ $config = [
 
 
     /*************************************
-    | AUTHENTICATION PROCESSING FILTERS |
+     | AUTHENTICATION PROCESSING FILTERS |
      *************************************/
 
     /*
@@ -973,12 +996,6 @@ $config = [
 
         // Adopts language from attribute to use in UI
         30 => 'core:LanguageAdaptor',
-
-        45 => [
-            'class'         => 'core:StatisticsWithAttribute',
-            'attributename' => 'realm',
-            'type'          => 'saml20-idp-SSO',
-        ],
 
         /* When called without parameters, it will fallback to filter attributes 'the old way'
          * by checking the 'attributes' parameter in metadata on IdP hosted and SP remote.
@@ -1045,7 +1062,7 @@ $config = [
 
 
     /**************************
-    | METADATA CONFIGURATION |
+     | METADATA CONFIGURATION |
      **************************/
 
     /*
@@ -1163,10 +1180,11 @@ $config = [
     'metadata.sign.privatekey' => null,
     'metadata.sign.privatekey_pass' => null,
     'metadata.sign.certificate' => null,
+    'metadata.sign.algorithm' => 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256',
 
 
     /****************************
-    | DATA STORE CONFIGURATION |
+     | DATA STORE CONFIGURATION |
      ****************************/
 
     /*
@@ -1226,6 +1244,28 @@ $config = [
     'store.redis.password' => '',
 
     /*
+     * Communicate with Redis over a secure connection instead of plain TCP.
+     *
+     * This setting affects both single host connections as
+     * well as Sentinel mode.
+     */
+    'store.redis.tls' => false,
+
+    /*
+     * Verify the Redis server certificate.
+     */
+    'store.redis.insecure' => false,
+
+    /*
+     * Files related to secure communication with Redis.
+     *
+     * Files are searched in the 'certdir' when using relative paths.
+     */
+    'store.redis.ca_certificate' => null,
+    'store.redis.certificate' => null,
+    'store.redis.privatekey' => null,
+
+    /*
      * The prefix we should use on our Redis datastore.
      */
     'store.redis.prefix' => 'SimpleSAMLphp',
@@ -1243,11 +1283,14 @@ $config = [
      *     'tcp://[yoursentinel2]:[port]',
      *     'tcp://[yoursentinel3]:[port]
      * ],
+     *
+     * Use 'tls' instead of 'tcp' in order to make use of the additional
+     * TLS settings.
      */
     'store.redis.sentinels' => [],
 
     /*********************
-    | IdP/SP PROXY MODE |
+     | IdP/SP PROXY MODE |
      *********************/
 
     /*
