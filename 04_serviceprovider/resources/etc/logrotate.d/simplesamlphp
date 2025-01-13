@@ -1,0 +1,9 @@
+/var/log/simplesamlphp.log {
+  daily
+  missingok
+  notifempty
+  copytruncate
+  nodateext
+  delaycompress
+  rotate 30
+}
