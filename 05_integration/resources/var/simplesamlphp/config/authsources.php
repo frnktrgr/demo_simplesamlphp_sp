@@ -28,6 +28,8 @@ $config = [
 
         // The entity ID of this SP.
         'entityID' => 'https://sso-dev.fau.de/devssp/module.php/saml/sp/metadata.php/default-sp',
+        // https://sso-dev.fau.de/devssp/ -> https://sso-dev.fau.de/devssp/module.php/saml/sp/metadata/default-sp
+        // https://sso-dev.fau.de/devssp/module.php/saml/sp/metadata.php/default-sp
 
         'privatekey' => 'sso-dev.fau.de.pem',
         'certificate' => 'sso-dev.fau.de.crt',
@@ -59,9 +61,10 @@ $config = [
          * The metadata will then be created as follows:
          * <md:RequestedAttribute FriendlyName="friendlyName" Name="name" />
          */
+
         'name' => [
             'en' => 'My Awesome PHP App',
-            'de' => 'Meine tolle PHP Anwendung',
+            'no' => 'Meine tolle PHP Anwendung',
         ],
 
         'attributes' => [
@@ -128,13 +131,15 @@ $config = [
         //'remember.username.enabled' => false,
         //'remember.username.checked' => false,
 
-        'student:studentpass' => [
-            'uid' => ['test'],
-            'eduPersonAffiliation' => ['member', 'student'],
-        ],
-        'employee:employeepass' => [
-            'uid' => ['employee'],
-            'eduPersonAffiliation' => ['member', 'employee'],
+        'users' => [
+            'student:studentpass' => [
+                'uid' => ['test'],
+                'eduPersonAffiliation' => ['member', 'student'],
+            ],
+            'employee:employeepass' => [
+                'uid' => ['employee'],
+                'eduPersonAffiliation' => ['member', 'employee'],
+            ],
         ],
     ],
     */
