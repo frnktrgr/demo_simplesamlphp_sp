@@ -25,11 +25,10 @@ sed "s/^memory_limit = .*$/memory_limit = $PHPMEMORYLIMIT/" -i /etc/php/${BBX_PH
 echogood "Setting PHP max execution time to ${PHPMAXEXECUTIONTIME}"
 sed "s/^max_execution_time = .*$/max_execution_time = $PHPMAXEXECUTIONTIME/" -i /etc/php/${BBX_PHP_VERSION}/apache2/php.ini
 
-echogood "Enable xdebug ..."
 #Set up debugger
+echogood "Enable xdebug ..."
 echo "xdebug.mode=debug" >> /etc/php/${BBX_PHP_VERSION}/apache2/php.ini
-#Please provide your host (local machine IP) instead of 169.254.254.1
-echo "xdebug.client_host=169.254.254.1" >> /etc/php/${BBX_PHP_VERSION}/apache2/php.ini
+echo "xdebug.client_host=host.docker.internal" >> /etc/php/${BBX_PHP_VERSION}/apache2/php.ini
 
 echogood "Starting Supervisor"
 exec /usr/bin/supervisord > /dev/null 2>&1 &

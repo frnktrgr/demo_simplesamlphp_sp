@@ -53,7 +53,7 @@ def steps = [
         '06_metarefresh': "05_integration",
         '07_authproc': "06_metarefresh",
         '08_production': "07_authproc",
-//        '09_extras': "08_production",
+        '09_extras': "08_production",
 ]
 steps.each {step, ancestor ->
     println "step ${ancestor} -> ${step}"
