@@ -5,7 +5,7 @@ Dieses Repository entstand bei der Durchführung einer Schulung über Service Pr
 Software [SimpleSAMLphp](https://simplesamlphp.org/) als Service Provider in der DFN-AAI-Föderation.
 
 ## Aktualisierung auf SimpleSAMLphp 2.3.x
-*in Arbeit*
+Aktuelle Version: **2.3.5**
 
 ## Aktualisierung auf SimpleSAMLphp 2.0.x
 Die Original-Schulungsunterlagen beziehen sich auf SimpleSAMLphp 1.19 und sind weiterhin im Branch
@@ -87,7 +87,7 @@ docker compose -f 01_voraussetzungen/compose.yaml down
 ```
 
 ## Kein Docker
-Das jeweilige `Dockerfile` inklusive der Dateien unter `resources` kann auch als Schritt für Schritt Anleitung für ein Ubuntu 22.04 verwendet werden.
+Das jeweilige `Dockerfile` inklusive der Dateien unter `resources` kann auch als Schritt für Schritt Anleitung für ein Ubuntu 24.04 verwendet werden.
 
 ## Links
 * [SimpleSAMLphp Dokumentation](https://simplesamlphp.org/docs/stable/)
