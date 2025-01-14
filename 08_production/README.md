@@ -13,7 +13,7 @@
 ### Änderungen
 * [resources/var/simplesamlphp/config/authsources.php](../../../blob/main/08_production/resources/var/simplesamlphp/config/authsources.php):
 ```diff
-@@ -42,7 +42,7 @@
+@@ -44,7 +44,7 @@
  
          // The URL to the discovery service.
          // Can be NULL/unset, in which case a builtin discovery service will be used.
@@ -22,7 +22,7 @@
  
          /*
           * If SP behind the SimpleSAMLphp in IdP/SP proxy mode requests
-@@ -97,279 +97,4 @@
+@@ -100,281 +100,4 @@
              ],
          ],
      ],
@@ -57,13 +57,15 @@
 -        //'remember.username.enabled' => false,
 -        //'remember.username.checked' => false,
 -
--        'student:studentpass' => [
--            'uid' => ['test'],
--            'eduPersonAffiliation' => ['member', 'student'],
--        ],
--        'employee:employeepass' => [
--            'uid' => ['employee'],
--            'eduPersonAffiliation' => ['member', 'employee'],
+-        'users' => [
+-            'student:studentpass' => [
+-                'uid' => ['test'],
+-                'eduPersonAffiliation' => ['member', 'student'],
+-            ],
+-            'employee:employeepass' => [
+-                'uid' => ['employee'],
+-                'eduPersonAffiliation' => ['member', 'employee'],
+-            ],
 -        ],
 -    ],
 -    */
@@ -305,7 +307,7 @@
 ```
 * [resources/var/simplesamlphp/config/config.php](../../../blob/main/08_production/resources/var/simplesamlphp/config/config.php):
 ```diff
-@@ -304,7 +304,7 @@
+@@ -325,7 +325,7 @@
       * empty array.
       */
      'debug' => [
@@ -314,7 +316,7 @@
          'backtraces' => true,
          'validatexml' => false,
      ],
-@@ -316,7 +316,7 @@
+@@ -337,7 +337,7 @@
       * When 'errorreporting' is enabled, a form will be presented for the user to report
       * the error to 'technicalcontact_email'.
       */
@@ -323,34 +325,34 @@
      'errorreporting' => true,
  
      /*
-@@ -348,7 +348,7 @@
+@@ -369,7 +369,7 @@
       * must exist and be writable for SimpleSAMLphp. If set to something else, set
       * loggingdir above to 'null'.
       */
 -    'logging.level' => SimpleSAML\Logger::DEBUG,
 +    'logging.level' => SimpleSAML\Logger::NOTICE,
-     'logging.handler' => 'syslog',
+     'logging.handler' => 'file',
  
      /*
-@@ -802,11 +802,12 @@
+@@ -825,11 +825,12 @@
      /*
       * Languages available, RTL languages, and what language is the default.
       */
 -    'language.available' => [
 -        'en', 'no', 'nn', 'se', 'da', 'de', 'sv', 'fi', 'es', 'ca', 'fr', 'it', 'nl', 'lb',
--        'cs', 'sk', 'sl', 'lt', 'hr', 'hu', 'pl', 'pt', 'pt-br', 'tr', 'ja', 'zh', 'zh-tw',
--        'ru', 'et', 'he', 'id', 'sr', 'lv', 'ro', 'eu', 'el', 'af', 'zu', 'xh', 'st',
+-        'cs', 'sk', 'sl', 'lt', 'hr', 'hu', 'pl', 'pt', 'pt_BR', 'tr', 'ja', 'zh', 'zh_TW',
+-        'ru', 'et', 'he', 'id', 'sr', 'lv', 'ro', 'eu', 'el', 'af', 'zu', 'xh', 'st'
 -    ],
 +//    'language.available' => [
 +//        'en', 'no', 'nn', 'se', 'da', 'de', 'sv', 'fi', 'es', 'ca', 'fr', 'it', 'nl', 'lb',
-+//        'cs', 'sk', 'sl', 'lt', 'hr', 'hu', 'pl', 'pt', 'pt-br', 'tr', 'ja', 'zh', 'zh-tw',
-+//        'ru', 'et', 'he', 'id', 'sr', 'lv', 'ro', 'eu', 'el', 'af', 'zu', 'xh', 'st',
++//        'cs', 'sk', 'sl', 'lt', 'hr', 'hu', 'pl', 'pt', 'pt_BR', 'tr', 'ja', 'zh', 'zh_TW',
++//        'ru', 'et', 'he', 'id', 'sr', 'lv', 'ro', 'eu', 'el', 'af', 'zu', 'xh', 'st'
 +//    ],
 +    'language.available' => ['en', 'de'],
      'language.rtl' => ['ar', 'dv', 'fa', 'ur', 'he'],
      'language.default' => 'de',
  
-@@ -952,7 +953,7 @@
+@@ -975,7 +976,7 @@
       *
       * Options: [links,dropdown]
       */
@@ -362,44 +364,30 @@
 ```
 * [resources/var/simplesamlphp/config/module_metarefresh.php](../../../blob/main/08_production/resources/var/simplesamlphp/config/module_metarefresh.php):
 ```diff
-@@ -6,6 +6,11 @@
-             'cron'		=> ['hourly'],
-             'sources'	=> [
-                 [
-+                    'whitelist' => [
-+                        'https://testidp.aai.dfn.de/idp/shibboleth',
-+                        'https://testidp2-dev.aai.dfn.de/idp/shibboleth',
-+                        'https://testidp3-dev.aai.dfn.de/idp/shibboleth',
-+                    ],
+@@ -32,10 +32,9 @@
+                     /*
+                      * Whitelist: only keep these EntityIDs.
+                      */
+-                    #'whitelist' => array(
+-                    #    'http://some.uni/idp',
+-                    #    'http://some.other.uni/idp',
+-                    #),
++                    'whitelist' => array(
++                        'https://testidp2.aai.dfn.de/idp/shibboleth',
++                    ),
+ 
+                     #'conditionalGET' => true,
                      'src' => 'http://www.aai.dfn.de/fileadmin/metadata/dfn-aai-test-metadata.xml',
-                     'certificates' => ['dfn-aai.pem'],
-                     //'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
-@@ -23,6 +28,7 @@
-                     ],
-                 ],
-             ],
-+            'types'         => ['saml20-idp-remote'],
-             'expireAfter'   => 60*60*24*4, // Maximum 4 days cache time.
-             'outputDir' 	=> 'metadata/dfntest/',
-             'outputFormat'  => 'flatfile',
-@@ -31,6 +37,9 @@
- 			'cron'		=> ['hourly'],
- 			'sources'	=> [
+@@ -59,6 +58,9 @@
+             'cron' => ['hourly'],
+             'sources' => [
                  [
-+                    'whitelist' => [
++                    'whitelist' => array(
 +                        'https://www.sso.uni-erlangen.de/simplesaml/saml2/idp/metadata.php',
-+                    ],
- 					'src' => 'http://www.aai.dfn.de/fileadmin/metadata/dfn-aai-basic-metadata.xml',
++                    ),
+                     'src' => 'http://www.aai.dfn.de/metadata/dfn-aai-idp-metadata.xml',
                      'certificates' => ['dfn-aai.pem'],
- 					//'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
-@@ -48,6 +57,7 @@
- 					],
- 				],
- 			],
-+            'types'         => ['saml20-idp-remote'],
- 			'expireAfter' 	=> 60*60*24*4, // Maximum 4 days cache time.
- 			'outputDir' 	=> 'metadata/dfn/',
- 			'outputFormat'  => 'flatfile',
+                     'template' => [
 ```
 
 [//]: # (AUTOGENERATE END)

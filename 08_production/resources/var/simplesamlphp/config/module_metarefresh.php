@@ -1,66 +1,82 @@
 <?php
 
 $config = [
-	'sets' => [
+    /*
+     * Global blacklist: entityIDs that should be excluded from ALL sets.
+     */
+    #'blacklist' = array(
+    #    'http://my.own.uni/idp'
+    #),
+
+    /*
+     * Conditional GET requests
+     * Efficient downloading so polling can be done more frequently.
+     * Works for sources that send 'Last-Modified' or 'Etag' headers.
+     * Note that the 'data' directory needs to be writable for this to work.
+     */
+    #'conditionalGET' => true,
+
+    'sets' => [
+
         'dfntest' => [
-            'cron'		=> ['hourly'],
-            'sources'	=> [
+            'cron' => ['hourly'],
+            'sources' => [
                 [
-                    'whitelist' => [
-                        'https://testidp.aai.dfn.de/idp/shibboleth',
-                        'https://testidp2-dev.aai.dfn.de/idp/shibboleth',
-                        'https://testidp3-dev.aai.dfn.de/idp/shibboleth',
-                    ],
+                    /*
+                     * entityIDs that should be excluded from this src.
+                     */
+                    #'blacklist' => array(
+                    #    'http://some.other.uni/idp',
+                    #),
+
+                    /*
+                     * Whitelist: only keep these EntityIDs.
+                     */
+                    'whitelist' => array(
+                        'https://testidp2.aai.dfn.de/idp/shibboleth',
+                    ),
+
+                    #'conditionalGET' => true,
                     'src' => 'http://www.aai.dfn.de/fileadmin/metadata/dfn-aai-test-metadata.xml',
                     'certificates' => ['dfn-aai.pem'],
-                    //'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
                     'template' => [
                         'tags' => ['dfntest'],
                         'authproc' => [
-                            50 => [
-                                'class' => 'core:GenerateGroups',
-                                'eduPersonScopedAffiliation',
-                            ],
-                            90 => [
-                                'class' => 'saml:FilterScopes',
-                            ]
+                            40 => ['class' => 'saml:FilterScopes'],
+                            50 => ['class' => 'core:GenerateGroups', 'eduPersonScopedAffiliation'],
                         ],
                     ],
                 ],
             ],
-            'types'         => ['saml20-idp-remote'],
-            'expireAfter'   => 60*60*24*4, // Maximum 4 days cache time.
-            'outputDir' 	=> 'metadata/dfntest/',
-            'outputFormat'  => 'flatfile',
+
+            'expireAfter' => 34560060, // Maximum 4 days cache time (3600*24*4)
+            'outputDir' => 'metadata/dfntest/',
+            'outputFormat' => 'flatfile',
+            'types' => ['saml20-idp-remote'],
         ],
-		'dfn' => [
-			'cron'		=> ['hourly'],
-			'sources'	=> [
+        'dfn' => [
+            'cron' => ['hourly'],
+            'sources' => [
                 [
-                    'whitelist' => [
+                    'whitelist' => array(
                         'https://www.sso.uni-erlangen.de/simplesaml/saml2/idp/metadata.php',
-                    ],
-					'src' => 'http://www.aai.dfn.de/fileadmin/metadata/dfn-aai-basic-metadata.xml',
+                    ),
+                    'src' => 'http://www.aai.dfn.de/metadata/dfn-aai-idp-metadata.xml',
                     'certificates' => ['dfn-aai.pem'],
-					//'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
-					'template' => [
-						'tags'	    => ['dfn'],
+                    'template' => [
+                        'tags' => ['dfn'],
                         'authproc' => [
-                            50 => [
-                                'class' => 'core:GenerateGroups',
-                                'eduPersonScopedAffiliation',
-                            ],
-                            90 => [
-                                'class' => 'saml:FilterScopes',
-                            ]
+                            40 => ['class' => 'saml:FilterScopes'],
+                            50 => ['class' => 'core:GenerateGroups', 'eduPersonScopedAffiliation'],
                         ],
-					],
-				],
-			],
-            'types'         => ['saml20-idp-remote'],
-			'expireAfter' 	=> 60*60*24*4, // Maximum 4 days cache time.
-			'outputDir' 	=> 'metadata/dfn/',
-			'outputFormat'  => 'flatfile',
-		],
-	],
+                    ],
+                ],
+            ],
+
+            'expireAfter' => 34560060, // Maximum 4 days cache time (3600*24*4)
+            'outputDir' => 'metadata/dfn/',
+            'outputFormat' => 'flatfile',
+            'types' => ['saml20-idp-remote'],
+        ],
+    ],
 ];

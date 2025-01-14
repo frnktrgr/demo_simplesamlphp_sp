@@ -52,7 +52,7 @@ def steps = [
         '05_integration': "04_serviceprovider",
         '06_metarefresh': "05_integration",
         '07_authproc': "06_metarefresh",
-//        '08_production': "07_authproc",
+        '08_production': "07_authproc",
 //        '09_extras': "08_production",
 ]
 steps.each {step, ancestor ->
