@@ -13,7 +13,7 @@
 ### Änderungen
 * [resources/var/simplesamlphp/config/config.php](../../../blob/main/07_authproc/resources/var/simplesamlphp/config/config.php):
 ```diff
-@@ -1019,6 +1019,9 @@
+@@ -1036,6 +1036,9 @@
       * Authentication processing filters that will be executed for all SPs
       */
      'authproc.sp' => [
@@ -26,38 +26,28 @@
 ```
 * [resources/var/simplesamlphp/config/module_metarefresh.php](../../../blob/main/07_authproc/resources/var/simplesamlphp/config/module_metarefresh.php):
 ```diff
-@@ -11,6 +11,15 @@
-                     //'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
+@@ -42,6 +42,10 @@
+                     'certificates' => ['dfn-aai.pem'],
                      'template' => [
                          'tags' => ['dfntest'],
 +                        'authproc' => [
-+                            50 => [
-+                                'class' => 'core:GenerateGroups',
-+                                'eduPersonScopedAffiliation',
-+                            ],
-+                            90 => [
-+                                'class' => 'saml:FilterScopes',
-+                            ]
++                            40 => ['class' => 'saml:FilterScopes'],
++                            50 => ['class' => 'core:GenerateGroups', 'eduPersonScopedAffiliation'],
 +                        ],
                      ],
                  ],
              ],
-@@ -27,6 +36,15 @@
- 					//'validateFingerprint' => 'cbf57ce9e8b1bf2abd0605bd943a0ce505829325',
- 					'template' => [
- 						'tags'	    => ['dfn'],
+@@ -59,6 +63,10 @@
+                     'certificates' => ['dfn-aai.pem'],
+                     'template' => [
+                         'tags' => ['dfn'],
 +                        'authproc' => [
-+                            50 => [
-+                                'class' => 'core:GenerateGroups',
-+                                'eduPersonScopedAffiliation',
-+                            ],
-+                            90 => [
-+                                'class' => 'saml:FilterScopes',
-+                            ]
++                            40 => ['class' => 'saml:FilterScopes'],
++                            50 => ['class' => 'core:GenerateGroups', 'eduPersonScopedAffiliation'],
 +                        ],
- 					],
- 				],
- 			],
+                     ],
+                 ],
+             ],
 ```
 * [resources/var/www/html/mapa_sso.php](../../../blob/main/07_authproc/resources/var/www/html/mapa_sso.php):
 ```diff
